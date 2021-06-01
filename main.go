@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
+
+	h "./src"
 	// _ "github.com/mattn/go-sqlite3"
 )
 
@@ -12,17 +13,17 @@ func main() {
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
-	http.HandleFunc("/home", home)
+	http.HandleFunc("/home", h.Home)
 	http.Handle("/home/", http.NotFoundHandler())
-	http.HandleFunc("/homeLogged", homeLogged)
+	http.HandleFunc("/homeLogged", h.HomeLogged)
 	http.Handle("/homeLogged/", http.NotFoundHandler())
-	http.HandleFunc("/login", login)
+	http.HandleFunc("/login", h.Login)
 	http.Handle("login/", http.NotFoundHandler())
-	http.HandleFunc("/register", register)
+	http.HandleFunc("/register", h.Register)
 	http.Handle("/register/", http.NotFoundHandler())
-	http.HandleFunc("/liked", liked)
+	http.HandleFunc("/liked", h.Liked)
 	http.Handle("/liked/", http.NotFoundHandler())
-	http.HandleFunc("/posted", posted)
+	http.HandleFunc("/posted", h.Posted)
 	http.Handle("/posted/", http.NotFoundHandler())
 
 	//Load static folder # Front end
@@ -39,6 +40,7 @@ func main() {
 
 }
 
+/*
 func home(w http.ResponseWriter, req *http.Request) {
 	tHome, err := template.ParseFiles("templates/home.html")
 	if err != nil {
@@ -92,3 +94,4 @@ func posted(w http.ResponseWriter, req *http.Request) {
 
 	tPosted.Execute(w, nil)
 }
+*/
