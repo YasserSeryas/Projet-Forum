@@ -1,0 +1,19 @@
+
+
+.topnav {
+    overflow: hidden;
+    background-color:black;
+  }
+  .topnav a {
+    float: right;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  a.left{ 
+    margin: 0;
+    padding: 0;
+  }
