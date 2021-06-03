@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"text/template"
+
+	h "./src"
 	// _ "github.com/mattn/go-sqlite3"
 )
 
@@ -12,17 +13,17 @@ func main() {
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
-	http.HandleFunc("/home", home)
+	http.HandleFunc("/home", h.Home)
 	http.Handle("/home/", http.NotFoundHandler())
-	http.HandleFunc("/homeLogged", homeLogged)
+	http.HandleFunc("/homeLogged", h.HomeLogged)
 	http.Handle("/homeLogged/", http.NotFoundHandler())
-	http.HandleFunc("/login", login)
+	http.HandleFunc("/login", h.Login)
 	http.Handle("login/", http.NotFoundHandler())
-	http.HandleFunc("/register", register)
+	http.HandleFunc("/register", h.Register)
 	http.Handle("/register/", http.NotFoundHandler())
-	http.HandleFunc("/liked", liked)
+	http.HandleFunc("/liked", h.Liked)
 	http.Handle("/liked/", http.NotFoundHandler())
-	http.HandleFunc("/posted", posted)
+	http.HandleFunc("/posted", h.Posted)
 	http.Handle("/posted/", http.NotFoundHandler())
 
 	//Load static folder # Front end
@@ -37,58 +38,4 @@ func main() {
 		log.Fatal(err)
 	}
 
-}
-
-func home(w http.ResponseWriter, req *http.Request) {
-	tHome, err := template.ParseFiles("templates/home.html")
-	if err != nil {
-		w.WriteHeader(400)
-	}
-
-	tHome.Execute(w, nil)
-}
-
-func homeLogged(w http.ResponseWriter, req *http.Request) {
-	tHomeLogged, err := template.ParseFiles("templates/homeLogged.html")
-	if err != nil {
-		w.WriteHeader(400)
-	}
-
-	tHomeLogged.Execute(w, nil)
-}
-
-func login(w http.ResponseWriter, req *http.Request) {
-	tLogin, err := template.ParseFiles("templates/login.html")
-	if err != nil {
-		w.WriteHeader(400)
-	}
-
-	tLogin.Execute(w, nil)
-}
-
-func register(w http.ResponseWriter, req *http.Request) {
-	tRegister, err := template.ParseFiles("templates/register.html")
-	if err != nil {
-		w.WriteHeader(400)
-	}
-
-	tRegister.Execute(w, nil)
-}
-
-func liked(w http.ResponseWriter, req *http.Request) {
-	tLiked, err := template.ParseFiles("templates/liked.html")
-	if err != nil {
-		w.WriteHeader(400)
-	}
-
-	tLiked.Execute(w, nil)
-}
-
-func posted(w http.ResponseWriter, req *http.Request) {
-	tPosted, err := template.ParseFiles("templates/posted.html")
-	if err != nil {
-		w.WriteHeader(400)
-	}
-
-	tPosted.Execute(w, nil)
 }
