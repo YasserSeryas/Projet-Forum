@@ -6,7 +6,7 @@ import (
 )
 
 func Home(w http.ResponseWriter, req *http.Request) {
-	tHome, err := template.ParseFiles("templates/home.html")
+	tHome, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
