@@ -32,6 +32,7 @@ func main() {
 
 	//Run and listen to the server
 	fmt.Println("listening on: http://localhost:2030")
+	fmt.Println("Home page : http://localhost:2030/home")
 	err := http.ListenAndServe(":2030", nil)
 
 	if err != nil {
