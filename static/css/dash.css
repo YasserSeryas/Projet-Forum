@@ -1,0 +1,36 @@
+.box {
+    display: flex;
+    
+    height: 96vh;
+    justify-content: space-around;
+    color: white;
+    
+  }
+  .text-left {
+  
+  
+  
+  
+  
+    border:5px solid #FFD369;
+    border-bottom: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    
+  
+  }
+  .box1  {
+   
+    width: 50vh;
+    border:5px solid #FFD369;
+    
+  }
+  .box2 {
+    width: 50vh;
+    border:5px solid #FFD369;
+  }
+  .box3 {
+    width: 50vh;
+    border:5px solid #FFD369;
+  }
+  
