@@ -1,5 +1,5 @@
 p{ 
-  color: white;
+  color: red;
 }
 body  { 
   background-color: #222831;
@@ -13,6 +13,7 @@ float: left;
 }
 /* Remove the navbar's default margin-bottom and rounded borders */ 
 .navbar {
+ 
   height:75px;
 background-color: #222831;
 margin-bottom: 0;
@@ -32,6 +33,7 @@ border-bottom: 0px;
 border-right: 0px;
 border-left: 0px;
 height: 100%;
+
 }
 .scroller {
   
@@ -41,10 +43,11 @@ scrollbar-color: rebeccapurple green;
 scrollbar-width: thin;
 }
 .text-left {
-  
-height: 100vh;
+  height: 91vh;
   border:5px solid #FFD369;
   border-bottom: 0px;
+  
+  
 
 }
 
@@ -73,4 +76,38 @@ padding: 15px;
 }
 h2{ 
   color: white;
+}
+.img{
+  
+  width: 45px;
+	height: 45px;
+  
+  
+}
+.box {
+  display: flex;
+  
+  height: 96vh;
+  justify-content: space-around;
+  color: white;
+}
+.box1  {
+ 
+  width: 50vh;
+  border:5px solid #FFD369;
+  
+}
+.box2 {
+  width: 50vh;
+  border:5px solid #FFD369;
+}
+.box3 {
+  width: 50vh;
+  border:5px solid #FFD369;
+}
+.box1 .box2 .box3{
+
+  
+ 
+
 }
