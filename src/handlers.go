@@ -1,18 +1,17 @@
 package helpers
 
 import (
+	"database/sql"
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+
+	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/crypto/bcrypt"
 )
 
-type accountStruct struct {
-	username string
-	email    string
-	pwd      string
-}
-
-var account accountStruct
+var Db, errBDD = sql.Open("sqlite3", "/home/nschneid/Projet-Forum/BDD/ProjetForum.db")
 
 func Home(w http.ResponseWriter, req *http.Request) {
 	tHome, err := template.ParseFiles("templates/index.html")
@@ -47,7 +46,6 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 
 func Login(w http.ResponseWriter, req *http.Request) {
 	cookie, errCookie := req.Cookie("isLogged")
-
 	// No cookie
 	if errCookie == http.ErrNoCookie {
 		cookie = &http.Cookie{
@@ -62,42 +60,64 @@ func Login(w http.ResponseWriter, req *http.Request) {
 	}
 
 	if req.Method == "POST" {
-		if (req.FormValue("usernameOrEmail") == account.username || req.FormValue("usernameOrEmail") == account.email) && req.FormValue("pwd") == account.pwd {
+		isConnected := false
+		result, errSelect := Db.Query("SELECT name, email, hashPwd FROM Account") // SELECT das la BDD
+		if errSelect != nil {                                                     // Test d'erreur
+			log.Fatal(errSelect)
+		}
+		for result.Next() { // On boucle le résultat du SELECT
+			var name string
+			var email string
+			var hashPwd string
+			result.Scan(&name, &email, &hashPwd)
+			if (req.FormValue("usernameOrEmail") == name || req.FormValue("usernameOrEmail") == email) && checkPassword(req.FormValue("pwd"), hashPwd) == nil {
+				isConnected = true
+				break
+			}
+		}
+		if isConnected {
 			fmt.Println("Connected !")
 			cookie = &http.Cookie{
 				Name:  "isLogged",
 				Value: "1",
 			}
-			http.SetCookie(w, cookie)
 			http.Redirect(w, req, "http://localhost:2030/homeLogged", http.StatusSeeOther)
 		} else {
 			fmt.Println("Not connected")
 			tLogin.Execute(w, nil)
 		}
+
 	} else {
 		cookie = &http.Cookie{
 			Name:  "isLogged",
 			Value: "0",
 		}
-		http.SetCookie(w, cookie)
 		tLogin.Execute(w, nil)
 	}
-
+	http.SetCookie(w, cookie)
 }
 
 func Register(w http.ResponseWriter, req *http.Request) {
+	if errBDD != nil {
+		fmt.Print("Into register : ")
+		log.Fatal(errBDD)
+	}
+
 	tRegister, err := template.ParseFiles("templates/register.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
 
 	if req.Method == "POST" {
-		account.username = req.FormValue("username")
-		account.email = req.FormValue("email")
-		if req.FormValue("pwd") == req.FormValue("secondPwd") {
-			account.pwd = req.FormValue("pwd")
+		statement, errCreate := Db.Prepare("INSERT INTO Account (name, email, hashPwd) VALUES(?, ?, ?)")
+		if errCreate != nil {
+			fmt.Println("err Db.prepare")
+			log.Fatal(errCreate)
 		}
-		fmt.Println("Username :", account.username, "\nEmail :", account.email, "\nPassword :", account.pwd)
+		if req.FormValue("pwd") == req.FormValue("secondPwd") {
+			statement.Exec(req.FormValue("username"), req.FormValue("email"), hashPassword(req.FormValue("pwd")))
+		}
+		showBDD()
 	}
 
 	tRegister.Execute(w, nil)
@@ -119,4 +139,31 @@ func Posted(w http.ResponseWriter, req *http.Request) {
 	}
 
 	tPosted.Execute(w, nil)
+}
+
+func showBDD() {
+	result, errSelect := Db.Query("SELECT name, email, hashPwd FROM Account")
+	if errSelect != nil {
+		log.Fatal(errSelect)
+	}
+	for result.Next() {
+		var name string
+		var email string
+		var hashPwd string
+		result.Scan(&name, &email, &hashPwd)
+		fmt.Println(name, email, hashPwd)
+	}
+}
+
+func hashPassword(password string) string {
+	hashedPwd, errHash := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if errHash != nil {
+		fmt.Print("Failed to hash password : ")
+		log.Fatal(errHash)
+	}
+	return string(hashedPwd)
+}
+
+func checkPassword(password string, hashedPwd string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hashedPwd), []byte(password))
 }
