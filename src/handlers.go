@@ -58,3 +58,12 @@ func Posted(w http.ResponseWriter, req *http.Request) {
 
 	tPosted.Execute(w, nil)
 }
+
+func Dashboard(w http.ResponseWriter, req *http.Request) {
+	tDashboard, err := template.ParseFiles("templates/dashboard.html")
+	if err != nil {
+		w.WriteHeader(400)
+	}
+
+	tDashboard.Execute(w, nil)
+}
