@@ -33,8 +33,8 @@ border-bottom: 0px;
 border-right: 0px;
 border-left: 0px;
 height: 100%;
-
 }
+
 .scroller {
   
 height: 750px;
@@ -64,6 +64,7 @@ padding: 15px;
   height: auto;
   padding: 15px;
 }
+
 .row.content {height:auto;} 
 }
 .LogoCenter {
