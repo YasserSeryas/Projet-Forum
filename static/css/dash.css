@@ -139,7 +139,7 @@ overflow-y: scroll;
     
     .titleSidenav{ 
       color: white;
-      padding: 50px;
+      padding-left: 50px;
     }
 
     .titleSidenav:hover, .titleSidenav:focus {
