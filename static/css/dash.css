@@ -1,7 +1,7 @@
 .box {
   display: flex;
   
-  height: 91vh;
+  height: 89vh;
   justify-content: space-between;
 }
 
@@ -10,25 +10,26 @@
   border-bottom: 0px;
   border-right: 0px;
   border-left: 0px;
+  
 }
 
 .box1  {
   width: 100vh;
   border: 5px solid #FFD369;
-  height: 91vh;
+  height: 89vh;
 overflow-y: scroll;
 
   
 }
 .box2 {
-  height: 91vh;
+  height: 89vh;
   overflow-y: scroll;
   width: 100vh;
   border:5px solid #FFD369;
 }
 
 .box3 {
-  height: 91vh;
+  height: 89vh;
   overflow-y: scroll;
   width: 100vh;
   border:5px solid #FFD369;

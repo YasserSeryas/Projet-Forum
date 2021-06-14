@@ -47,13 +47,13 @@ p{
     }
   .scroller {
     
-  height: 750px;
+  height: 673px;
   overflow-y: scroll;
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
   }
   .text-left {
-    height: 100vh;
+    height: 90vh;
     border:5px solid #FFD369;
     border-bottom: 0px;
   }
