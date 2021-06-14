@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="Projet-Forum" id="Project_b83" database="Sqlite" >
 	<schema name="Default" >
-		<table name="Account" >
+		<table name="Account" generator_rows="100" >
 			<column name="Email" type="text" jt="-1" mandatory="y" />
 			<column name="Name" type="text" jt="-1" />
 			<column name="HashPwd" type="text" jt="-1" />
@@ -10,24 +10,27 @@
 				<column name="Email" />
 			</index>
 		</table>
-		<table name="Categorie" >
+		<table name="Categorie" generator_rows="100" >
 			<column name="Nom" type="text" jt="-1" />
-			<column name="Post" type="text" jt="-1" />
+			<column name="Color" type="integer" jt="4" />
+			<index name="Pk_Categorie_Nom" unique="UNIQUE_KEY" >
+				<column name="Nom" />
+			</index>
 		</table>
 		<table name="Like" generator_rows="100" >
-			<column name="User " type="text" jt="-1" mandatory="y" />
-			<column name="ID-Post" type="integer" jt="4" mandatory="y" />
-			<column name="IsLike" type="boolean" jt="-7" />
 			<column name="IsDislike" type="boolean" jt="-7" />
+			<column name="User" type="text" jt="-1" />
+			<column name="IsLike" type="boolean" jt="-7" />
+			<column name="IdPost" prior="Id-Post" type="integer" jt="4" />
 			<column name="date" type="date" jt="91" />
-			<fk name="Fk_Like" to_schema="Default" to_table="Account" >
-				<fk_column name="User " pk="Email" />
+			<fk name="Fk_Like" to_schema="Default" to_table="Post" >
+				<fk_column name="IdPost" pk="Id-Post" />
 			</fk>
-			<fk name="Fk_Like_0" to_schema="Default" to_table="Post" >
-				<fk_column name="ID-Post" pk="Id-Post" />
+			<fk name="Fk_Like_0" to_schema="Default" to_table="Account" >
+				<fk_column name="User" pk="Email" />
 			</fk>
 		</table>
-		<table name="Post" >
+		<table name="Post" generator_rows="100" >
 			<column name="Id-Post" type="integer" jt="4" mandatory="y" />
 			<column name="User" type="text" jt="-1" />
 			<column name="Content" type="text" jt="-1" />
@@ -35,28 +38,54 @@
 			<column name="Dislike" type="integer" jt="4" />
 			<column name="Comment" type="text" jt="-1" />
 			<column name="Creationdate" type="date" jt="91" />
+			<column name="Category" type="text" jt="-1" />
 			<index name="pk_Post" unique="PRIMARY_KEY" >
 				<column name="Id-Post" />
 			</index>
 			<fk name="Fk_Post" to_schema="Default" to_table="Account" >
 				<fk_column name="User" pk="Email" />
 			</fk>
+			<fk name="Fk_Post_0" to_schema="Default" to_table="Categorie" >
+				<fk_column name="Category" pk="Nom" />
+			</fk>
 		</table>
 	</schema>
-	<connector name="Projet-Forum" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.34.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Serya/Downloads/database.db" />
-	<connector name="Projet-Forum" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.34.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Serya/Downloads/database.db" />
 	<connector name="Projet-Forum" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.34.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Serya/OneDrive/Documents/GitHub/Projet-Forum/Bdd/ProjetForumBDD.db" />
+	<connector name="Projet-Forum" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.34.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Serya/Downloads/database.db" />
+	<connector name="Projet-Forum" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.34.0.jar" driver_desc="Standard" host="localhost" port="7210" instance="C:/Users/Serya/Downloads/database.db" />
 	<layout name="Layout with Tools" id="Layout_535" show_column_type="y" show_relation="columns" >
 		<entity schema="Default" name="Account" color="BED3F4" x="48" y="48" />
-		<entity schema="Default" name="Categorie" color="3986C1" x="336" y="256" />
-		<entity schema="Default" name="Like" color="C1D8EE" x="256" y="48" />
+		<entity schema="Default" name="Categorie" color="3986C1" x="272" y="112" />
+		<entity schema="Default" name="Like" color="C1D8EE" x="400" y="288" />
 		<entity schema="Default" name="Post" color="BED3F4" x="48" y="256" />
+		<script name="Account" id="Editor_5c6" language="SQL" >
+			<string><![CDATA[DELETE FROM Account;]]></string>
+		</script>
+		<script name="Account_001" id="Editor_946" language="SQL" >
+			<string><![CDATA[DELETE FROM Account;]]></string>
+		</script>
+		<script name="Account_002" id="Editor_1b0f" language="SQL" >
+			<string><![CDATA[DELETE FROM Account;]]></string>
+		</script>
+		<script name="Account_003" id="Editor_628" language="SQL" >
+			<string><![CDATA[DELETE FROM Account;]]></string>
+		</script>
 		<script name="Categorie" id="Editor_cdd" language="SQL" >
 			<string><![CDATA[INSERT INTO Categorie
 	( Nom, Post) VALUES ( "Gaming", "Post" );]]></string>
 		</script>
 		<script name="Categorie_001" id="Editor_1da4" language="SQL" >
 			<string><![CDATA[DELETE FROM Categorie;]]></string>
+		</script>
+		<script name="Categorie_002" id="Editor_733" language="SQL" >
+			<string><![CDATA[DELETE FROM Categorie;]]></string>
+		</script>
+		<script name="Categorie_003" id="Editor_44c" language="SQL" >
+			<string><![CDATA[INSERT INTO Categorie
+	( Nom, Color) VALUES ( "Funny", "Rose" );]]></string>
+		</script>
+		<script name="Like" id="Editor_1041" language="SQL" >
+			<string><![CDATA[DELETE FROM Like;]]></string>
 		</script>
 		<script name="Like_001" id="Editor_1910" language="SQL" >
 			<string><![CDATA[INSERT INTO Like
@@ -70,6 +99,12 @@ FROM
 		<script name="Post_001" id="Editor_121f" language="SQL" >
 			<string><![CDATA[INSERT INTO Post
 	( [Id-Post], User, Content, Like, Dislike, Comment, Creationdate) VALUES ( ?, ?, ?, ?, ?, ?, ? );]]></string>
+		</script>
+		<script name="Post_002" id="Editor_1d04" language="SQL" >
+			<string><![CDATA[DELETE FROM Post;]]></string>
+		</script>
+		<script name="Post_003" id="Editor_16d9" language="SQL" >
+			<string><![CDATA[DELETE FROM Post;]]></string>
 		</script>
 		<script name="Sample SQL Editor" id="Editor_1a05" language="SQL" >
 			<string><![CDATA[SELECT Email, Name, HashPwd, SessionUUID

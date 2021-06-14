@@ -15,7 +15,7 @@ func main() {
 		fmt.Print("Error")
 	}
 
-	rows, _ := database.Query("SELECT User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post")
+	rows, _ := database.Query("SELECT User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post Where Category = 'Sport' ")
 	var User string
 	var Dislike int
 	var Like int
@@ -30,7 +30,7 @@ func main() {
 		fmt.Println("Like : " + strconv.Itoa(Like))
 		fmt.Println("Dislike : " + strconv.Itoa(Dislike))
 		fmt.Println("Comment : " + Comment)
-		fmt.Println("Creation Date : ", CreationDate)
+		fmt.Println("Creation Date : " + CreationDate.String())
 		fmt.Println("Category : " + Category)
 	}
 }
