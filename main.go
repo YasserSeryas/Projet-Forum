@@ -27,6 +27,8 @@ func main() {
 	http.Handle("/posted/", http.NotFoundHandler())
 	http.HandleFunc("/dashboard", h.Dashboard)
 	http.Handle("/dashboard/", http.NotFoundHandler())
+	http.HandleFunc("/profile", h.Profile)
+	http.Handle("/profile/", http.NotFoundHandler())
 
 	//Load static folder # Front end
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))

@@ -67,3 +67,12 @@ func Dashboard(w http.ResponseWriter, req *http.Request) {
 
 	tDashboard.Execute(w, nil)
 }
+
+func Profile(w http.ResponseWriter, req *http.Request) {
+	tProfile, err := template.ParseFiles("templates/profile.html")
+	if err != nil {
+		w.WriteHeader(400)
+	}
+
+	tProfile.Execute(w, nil)
+}
