@@ -36,7 +36,7 @@ p{
   
   }
   .sidenav2 {
-    padding-top: 240px;
+    padding-top: 150px;
     
     border:5px solid #FFD369;
     border-bottom: 0px;
@@ -105,7 +105,7 @@ p{
 
   .titleSidenav{ 
     color: white;
-    padding: 50px;
+    padding-left: 50px;
   }
 
   .titleSidenav:hover, .titleSidenav:focus {
