@@ -171,3 +171,9 @@ overflow-y: scroll;
     width: 3em;
   
   }
+
+  .under-text {
+    height: 0vh;
+    border:3px solid #FFD369;
+    border-bottom: 0px;
+  }

@@ -35,7 +35,7 @@ func main() {
 	// http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
 	//Run and listen to the server
-	fmt.Println("listening on: http://localhost:2030")
+	fmt.Println("listening on: http://localhost:2030/home")
 	err := http.ListenAndServe(":2030", nil)
 
 	if err != nil {
