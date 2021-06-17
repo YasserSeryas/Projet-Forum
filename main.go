@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"io/ioutil"
 	"net/http"
 
 	h "./src"
@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
@@ -39,7 +40,7 @@ func main() {
 	err := http.ListenAndServe(":2030", nil)
 
 	if err != nil {
-		log.Fatal(err)
+		data := []byte(err.Error())
+		ioutil.WriteFile("test.txt", data, 0644)
 	}
-
 }
