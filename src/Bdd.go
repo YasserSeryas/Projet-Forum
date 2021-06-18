@@ -1,6 +1,6 @@
-package main
+package helpers
 
-import (
+/*import (
 	"database/sql"
 	"fmt"
 	"strconv"
@@ -95,7 +95,6 @@ func Categorie() {
 	}
 
 }
-
 func Topic() {
 	database, err := sql.Open("sqlite3", "../Bdd/ProjetForumBDD.db")
 	if err != nil {
@@ -116,4 +115,4 @@ func Topic() {
 		fmt.Println("UserPseudp" + UserPseudo)
 		fmt.Println("Categorie" + Categorie)
 	}
-}
+}*/

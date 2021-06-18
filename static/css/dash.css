@@ -1,3 +1,5 @@
+
+
 .box {
     display: flex;
     
@@ -173,14 +175,34 @@ overflow-y: scroll;
 
 
     .menu {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
       position: fixed;
       left: 0;
-      padding: 0 30px;
-      background-color: ;
-      width: 15%;
+      background-color:#222831 ;
+      width: 16.6%;
       height: 100%;
+      z-index: 999 ;
+      top: 31px;
+      
+
+      
       /*
       transform:translateX(-100%) ; 
       transition: transform 1s ease-in-out ; */
 
+
     }
+
+    .menu .line{
+      margin: 15px;
+      
+    }
+
+    .menu .line label {
+      color: #EEEEEE;
+      margin: 5px;
+    }
+
+    
