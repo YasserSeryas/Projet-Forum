@@ -1,15 +1,19 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 
 	h "./src"
-	//_ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
+var Database, _ = sql.Open("sqlite3", "../Bdd/ProjetForumBDD.db")
+
 func main() {
+
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
@@ -37,5 +41,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	///
 
 }

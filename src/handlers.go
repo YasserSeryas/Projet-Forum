@@ -1,17 +1,35 @@
 package helpers
 
 import (
+	"database/sql"
 	"html/template"
 	"net/http"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
+var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
+
 func Home(w http.ResponseWriter, req *http.Request) {
+
+	rows, err := Database.Query("SELECT User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post")
+
+	var data Post
+	result := []Post{}
+	for rows.Next() {
+		rows.Scan(&data.User, &data.Content, &data.Like, &data.Dislike, &data.Comment, &data.CreationDate, &data.Category)
+		//dat := (" User : " + data.User + "\n") + (" Content :" + data.Content + "\n") + (" Like : " + strconv.Itoa(data.Like) + "\n") + (" Dislike : " + strconv.Itoa(data.Dislike) + "\n") + (" Comment : " + data.Comment + "\n") + (" Creation Date : " + data.CreationDate.String() + "\n") + (" Category : " + data.Category + "\n")
+
+		result = append(result, data)
+	}
+	rows.Close()
+
 	tHome, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
 
-	tHome.Execute(w, nil)
+	tHome.Execute(w, result)
 }
 
 func HomeLogged(w http.ResponseWriter, req *http.Request) {
