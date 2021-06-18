@@ -1,15 +1,19 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 
 	h "./src"
-	//_ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
+var Database, _ = sql.Open("sqlite3", "../Bdd/ProjetForumBDD.db")
+
 func main() {
+
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
@@ -17,6 +21,8 @@ func main() {
 	http.Handle("/home/", http.NotFoundHandler())
 	http.HandleFunc("/homeLogged", h.HomeLogged)
 	http.Handle("/homeLogged/", http.NotFoundHandler())
+	http.HandleFunc("/dashboard", h.Dashboard)
+	http.Handle("/dashboard/", http.NotFoundHandler())
 	http.HandleFunc("/login", h.Login)
 	http.Handle("login/", http.NotFoundHandler())
 	http.HandleFunc("/register", h.Register)
@@ -33,11 +39,12 @@ func main() {
 	// http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
 	//Run and listen to the server
-	fmt.Println("listening on: http://localhost:2030")
+	fmt.Println("listening on: http://localhost:2030/home")
 	err := http.ListenAndServe(":2030", nil)
 
 	if err != nil {
 		log.Fatal(err)
 	}
+	///
 
 }

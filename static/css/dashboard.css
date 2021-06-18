@@ -33,32 +33,35 @@ p{
   border-right: 0px;
   border-left: 0px;
   height: 100%;
-  }
   
+  }
   .sidenav2 {
-    padding-top: 150px;
+    padding-top: 240px;
     
     border:5px solid #FFD369;
     border-bottom: 0px;
     border-right: 0px;
     border-left: 0px;
     height: 100%;
+    
     }
-
   .scroller {
     
-  height: 673px;
+  height: 750px;
   overflow-y: scroll;
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
   }
   .text-left {
-    height: 90vh;
+    height: 100vh;
     border:5px solid #FFD369;
     border-bottom: 0px;
-    
-    
-  
+  }
+
+  .under-text {
+    height: 0vh;
+    border:3px solid #FFD369;
+    border-bottom: 0px;
   }
   
   /* Set black background color, white text and some padding */
@@ -74,7 +77,6 @@ p{
     height: auto;
     padding: 15px;
   }
-  
   .row.content {height:auto;} 
   }
   .LogoCenter {
@@ -96,87 +98,6 @@ p{
     
   }
   
-
-
-
-
-
-
-
-
-
-
   h1{ 
     color: black;
   }
-
-  .titleSidenav{ 
-    color: white;
-    padding-left: 50px;
-  }
-
-  .titleSidenav:hover, .titleSidenav:focus {
-    color: white;
-    text-decoration: none;
-  }
-
-  .LogoDash {
-    position: absolute; /* postulat de départ */
-    top: 42%; left: 13%;
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-    width: 3em;
-  
-  }
-
-   .LogoLike {
-    position: absolute; /* postulat de départ */
-    top: 54%; left: 13%;
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-    width: 3em;
-  
-  }
-
-  .LogoPost {
-    position: absolute; /* postulat de départ */
-    top: 66%; left: 13%; 
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-    width: 3em;
-  
-  }
-  .container{
-    width:40%;
-  }
-  #textar{
-      margin: 10px 0px 20px 45px;
-      width: 70%;
-      height: 150px;
-      padding: 12px 20px;
-      box-sizing: border-box;
-      border: 2px solid #ccc;
-      border-radius: 4px;
-      background-color: #f8f8f8;
-      font-size: 16px;
-  }
-  
-  #button{
-    width : 100px;
-    height : 50px;
-    font-family: 'Droid Serif', serif;
-    
-      background-color: white;
-      color: black;
-      border: 2px solid #4CAF50; /* Green */
-  }
-  
-  #button:hover {
-      background-color: #4CAF50; /* Green */
-      color: white;
-  }
-  
-  
-  
-  h1 {
-    font-family: 'Droid Serif', serif;
-  }
-  
-  

@@ -10,7 +10,7 @@
   .text-left {
     border: 5px solid #FFD369;
     border-bottom: 0px;
-    border-right: 0px;
+    border-top:0px;
     border-left: 0px;
   }
 
@@ -20,7 +20,14 @@
     height: 91vh;
 overflow-y: scroll;
 
-    
+  body  { 
+    background-color: #222831;
+  }
+
+  .LogoVertical{
+  float: left;
+   max-width: 100px;
+   height: auto;
   }
   .box2 {
     height: 91vh;
@@ -36,14 +43,14 @@ overflow-y: scroll;
     border:5px solid #FFD369;
   }
   
-  .box h1{
-      background-color: #555;
-      position: fixed;
-      border:5px solid #FFD369;
-      border-bottom: 0px;
-      border-top:0px;
-      border-left: 0px;
-      border-right: 0px;
+  .titleSidenav{ 
+    color: white;
+    padding-left: 50px;
+  }
+
+  .titleSidenav:hover, .titleSidenav:focus {
+    color: white;
+    text-decoration: none;
   }
 
   .box p {
