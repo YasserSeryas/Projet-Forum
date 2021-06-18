@@ -9,27 +9,30 @@ import (
 )
 
 var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
+var Result = []Post{}
 
-func Home(w http.ResponseWriter, req *http.Request) {
-
-	rows, err := Database.Query("SELECT User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post")
+func ShowBdd() {
+	rows, _ := Database.Query("SELECT User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post")
 
 	var data Post
-	result := []Post{}
+
 	for rows.Next() {
 		rows.Scan(&data.User, &data.Content, &data.Like, &data.Dislike, &data.Comment, &data.CreationDate, &data.Category)
 		//dat := (" User : " + data.User + "\n") + (" Content :" + data.Content + "\n") + (" Like : " + strconv.Itoa(data.Like) + "\n") + (" Dislike : " + strconv.Itoa(data.Dislike) + "\n") + (" Comment : " + data.Comment + "\n") + (" Creation Date : " + data.CreationDate.String() + "\n") + (" Category : " + data.Category + "\n")
 
-		result = append(result, data)
+		Result = append(Result, data)
 	}
 	rows.Close()
 
+}
+func Home(w http.ResponseWriter, req *http.Request) {
+	ShowBdd()
 	tHome, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
 
-	tHome.Execute(w, result)
+	tHome.Execute(w, Result)
 }
 
 func HomeLogged(w http.ResponseWriter, req *http.Request) {
@@ -38,7 +41,15 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(400)
 	}
 
-	tHomeLogged.Execute(w, nil)
+	tHomeLogged.Execute(w, Result)
+}
+func Dashboard(w http.ResponseWriter, req *http.Request) {
+	tDashboard, err := template.ParseFiles("templates/dashboard.html")
+	if err != nil {
+		w.WriteHeader(400)
+	}
+
+	tDashboard.Execute(w, Result)
 }
 
 func Login(w http.ResponseWriter, req *http.Request) {

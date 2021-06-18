@@ -21,6 +21,8 @@ func main() {
 	http.Handle("/home/", http.NotFoundHandler())
 	http.HandleFunc("/homeLogged", h.HomeLogged)
 	http.Handle("/homeLogged/", http.NotFoundHandler())
+	http.HandleFunc("/dashboard", h.Dashboard)
+	http.Handle("/dashboard/", http.NotFoundHandler())
 	http.HandleFunc("/login", h.Login)
 	http.Handle("login/", http.NotFoundHandler())
 	http.HandleFunc("/register", h.Register)
@@ -35,7 +37,7 @@ func main() {
 	// http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
 	//Run and listen to the server
-	fmt.Println("listening on: http://localhost:2030")
+	fmt.Println("listening on: http://localhost:2030/home")
 	err := http.ListenAndServe(":2030", nil)
 
 	if err != nil {

@@ -44,19 +44,21 @@
         <h1>Welcome</h1>
         
 <ul>
+  <div class="data">
     {{range .}}
-        
+          
         <h2>User: @{{.User}}</h2>
         
     
       <p>Content: {{.Content}}</p>
       <p>Like :{{.Like}}</p>
       <p>Dislike: {{.Dislike}}</p>
-      <h3>Category: #{{.Category}}</h3>
+      <p>Category: #{{.Category}}</p>
       <p>Comment: {{.Comment}}</p>
       <p>Creation Date :{{.CreationDate}}</p>
     
       {{end}}
+    </div>
     </div>
     </div>
     <div class="col-sm-2 sidenav">
