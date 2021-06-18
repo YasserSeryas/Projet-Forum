@@ -25,6 +25,12 @@ func ShowBdd() {
 	rows.Close()
 
 }
+func Insert() {
+	//stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
+
+	//res, err := stmt.Exec("astaxie", "研发部门", "2012-12-09")
+
+}
 func Home(w http.ResponseWriter, req *http.Request) {
 	ShowBdd()
 	tHome, err := template.ParseFiles("templates/index.html")
