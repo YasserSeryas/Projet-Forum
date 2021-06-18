@@ -26,9 +26,11 @@ func ShowBdd() {
 
 }
 func Insert() {
-	//stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
+	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
+	formSelect := r.PostForm.Get("Category")
+	formText := r.PostForm.Get("text")
 
-	//res, err := stmt.Exec("astaxie", "研发部门", "2012-12-09")
+	res, err := stmt.Exec("astaxie", "研发部门", "2012-12-09")
 
 }
 func Home(w http.ResponseWriter, req *http.Request) {
