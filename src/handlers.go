@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"database/sql"
+	"fmt"
 	"html/template"
 	"net/http"
 	"time"
@@ -23,15 +24,17 @@ func ShowBdd() {
 
 		Result = append(Result, data)
 	}
-	rows.Close()
 
 }
 func Insert(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
-	formSelect := r.PostForm.Get("Category")
-	formText := r.PostForm.Get("text")
+	formSelect := r.PostForm.Get("choice")
+	formText := r.PostForm.Get("Usertxt")
 
-	stmt.Exec("Yasser", formText, 0, 0, "", time.Now(), formSelect)
+	stmt.Exec("Yasser@test.com", formText, 0, 0, "", time.Now(), formSelect)
+	fmt.Println("here", formText, formSelect)
+	http.Redirect(w, r, "/homeLogged", 301)
 
 }
 func Home(w http.ResponseWriter, req *http.Request) {
@@ -45,6 +48,7 @@ func Home(w http.ResponseWriter, req *http.Request) {
 }
 
 func HomeLogged(w http.ResponseWriter, req *http.Request) {
+	ShowBdd()
 	tHomeLogged, err := template.ParseFiles("templates/homeLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
