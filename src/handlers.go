@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"html/template"
 	"net/http"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -23,6 +24,14 @@ func ShowBdd() {
 		Result = append(Result, data)
 	}
 	rows.Close()
+
+}
+func Insert(w http.ResponseWriter, r *http.Request) {
+	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
+	formSelect := r.PostForm.Get("Category")
+	formText := r.PostForm.Get("text")
+
+	stmt.Exec("Yasser", formText, 0, 0, "", time.Now(), formSelect)
 
 }
 func Home(w http.ResponseWriter, req *http.Request) {
