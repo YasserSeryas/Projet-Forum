@@ -54,7 +54,7 @@
         <div id="test">
           <form action="/insert" method="post">
           <label id="font1" for="choice">Choix de la categorie</label>
-          <select name="choice" id="choice">
+          <select name="choice" id="choice" required>
                <option value="">--Please choose a Category--</option>
           <option value="Gaming">Gaming</option>
           <option value="Politics">Politics</option>
@@ -69,7 +69,7 @@
       </div>
       <div id="bandeau">
         <textarea id="Usertxt" name="Usertxt"
-            rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" style="font-size: 25px ; background-color: #FAEBD7;font-family:OCR A Std, monospace; font-weight: bold; border: solid white 3px;"></textarea>
+            rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*" style="font-size: 25px ; background-color: #FAEBD7;font-family:OCR A Std, monospace; font-weight: bold; border: solid white 3px;"></textarea>
         <input type="submit" Value="Valider" style="width:110px;height: 30px;font-size: 19px;font-family:Arial; font-style: oblique ; font-weight: 51; background-color: #FAEBD7">
       </form>
       </div>
@@ -78,7 +78,7 @@
         
       </div>
 
-        <h1>Welcome</h1>
+        
         {{range .}}
           
         <h2>User: @{{.User}}</h2>

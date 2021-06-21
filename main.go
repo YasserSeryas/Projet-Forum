@@ -13,7 +13,7 @@ import (
 var Database, _ = sql.Open("sqlite3", "../Bdd/ProjetForumBDD.db")
 
 func main() {
-
+	h.ShowBdd()
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
