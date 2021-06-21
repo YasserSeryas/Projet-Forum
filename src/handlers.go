@@ -14,14 +14,13 @@ import (
 
 const AGE_SESSION = 60 * 20
 
-var Db, errBDD = sql.Open("sqlite3", "/home/nschneid/Projet-Forum/BDD/ProjetForum.db")
+var Db, errBDD = sql.Open("sqlite3", "./BDD/ProjetForum.db")
 
 func Home(w http.ResponseWriter, req *http.Request) {
 	tHome, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
-
 	tHome.Execute(w, nil)
 }
 
@@ -39,9 +38,11 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 }
 
 func Login(w http.ResponseWriter, req *http.Request) {
-	cookie, _ := req.Cookie("isLogged")
+	cookie, errCookie := req.Cookie("isLogged")
 
-	cookie.MaxAge = -1
+	if errCookie != http.ErrNoCookie {
+		cookie.MaxAge = -1
+	}
 
 	tLogin, err := template.ParseFiles("templates/login.html")
 	if err != nil {
