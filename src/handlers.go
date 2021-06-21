@@ -52,6 +52,7 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 
 	tHomeLogged.Execute(w, Result)
 }
+
 func Dashboard(w http.ResponseWriter, req *http.Request) {
 	tDashboard, err := template.ParseFiles("templates/dashboard.html")
 	if err != nil {
@@ -95,13 +96,4 @@ func Posted(w http.ResponseWriter, req *http.Request) {
 	}
 
 	tPosted.Execute(w, nil)
-}
-
-func Dashboard(w http.ResponseWriter, req *http.Request) {
-	tDashboard, err := template.ParseFiles("templates/dashboard.html")
-	if err != nil {
-		w.WriteHeader(400)
-	}
-
-	tDashboard.Execute(w, nil)
 }
