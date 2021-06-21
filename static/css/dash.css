@@ -18,9 +18,11 @@
     width: 100vh;
     border: 5px solid #FFD369;
     height: 91vh;
-overflow-y: scroll;
+    overflow-y: scroll;
+  }
 
-  body  { 
+
+  body { 
     background-color: #222831;
   }
 
@@ -211,5 +213,3 @@ overflow-y: scroll;
       color: #EEEEEE;
       margin: 5px;
     }
-
-    
