@@ -1,215 +1,185 @@
+body { 
+    background-color: #222831;
+}
 
+p { 
+    color: white;
+}
 
-.box {
-    display: flex;
-    
-    height: 91vh;
-    justify-content: space-between;
-  }
+h2{ 
+    color: white;
+}
 
-  .text-left {
+.text-left {
     border: 5px solid #FFD369;
     border-bottom: 0px;
     border-top:0px;
     border-left: 0px;
-  }
+}
 
-  .box1  {
+.LogoVertical{
+    float: left;
+    max-width: 100px;
+    height: auto;
+}
+
+.box {
+    display: flex;
+    height: 91vh;
+    justify-content: space-between;
+}
+.box p {
+    padding-top: 75px;
+}
+
+.box1  {
     width: 100vh;
     border: 5px solid #FFD369;
     height: 91vh;
     overflow-y: scroll;
-  }
-
-
-  body { 
-    background-color: #222831;
-  }
-
-  .LogoVertical{
-  float: left;
-   max-width: 100px;
-   height: auto;
-  }
-  .box2 {
+}
+.box2 {
     height: 91vh;
     overflow-y: scroll;
     width: 100vh;
     border:5px solid #FFD369;
-  }
-
-  .box3 {
+}
+.box3 {
     height: 91vh;
     overflow-y: scroll;
     width: 100vh;
     border:5px solid #FFD369;
-  }
+}
   
-  .titleSidenav{ 
+.titleSidenav{ 
     color: white;
     padding-left: 50px;
-  }
-
-  .titleSidenav:hover, .titleSidenav:focus {
+}
+.titleSidenav:hover, .titleSidenav:focus {
     color: white;
     text-decoration: none;
-  }
+}
 
-  .box p {
-      padding-top: 75px;
-  }
-
-  #hidden h2{
-    display:none;
-  }
-
-  #hidden{
+#hidden{
     padding-top: 50px;
     height: 91vh;
     overflow-y: scroll;
-  }
+}
+#hidden h2{
+    display:none;
+}
 
-  .sidenav {
+.sidenav {
     padding-top: 150px;
     border:5px solid #FFD369;
     border-bottom: 0px;
     border-right: 0px;
     border-left: 0px;
     height: 100%;
-    }
-    
-    p{ 
-      color: white;
-    }
+}
 
-    body  { 
-      background-color: #222831;
-    }
-
-    .LogoVertical{
+.LogoVertical{
     float: left;
-     max-width: 100px;
-     height: auto;
-    }
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      height:75px;
+    max-width: 100px;
+    height: auto;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+    height:75px;
     background-color: #222831;
     margin-bottom: 0;
     border-radius: 0;
-    }
+}
     
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-    
-    /* Set gray background color and 100% height */
-    
-    .scroller {
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+/* Set gray background color and 100% height */
+.scroller {
     height: 750px;
     overflow-y: scroll;
     scrollbar-color: rebeccapurple green;
     scrollbar-width: thin;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
     }
 
- 
-    
-    /* Set black background color, white text and some padding */
-    footer {
+    .row.content {height:auto;} 
+}
+
+.LogoCenter {
+    position: absolute; /* postulat de départ */
+    top: 50%; left: 50%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+    width: 6em;
+}
+
+.img{
+    width: 45px;
+    height: 45px;
+}
+
+.titleSidenav{ 
+    color: white;
+    padding-left: 50px;
+}
+.titleSidenav:hover, .titleSidenav:focus {
+    color: white;
+    text-decoration: none;
+}
+
+.LogoDash {
+    position: absolute; /* postulat de départ */
+    top: 42%; left: 13%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+    width: 3em;
+}
+.LogoLike {
+    position: absolute; /* postulat de départ */
+    top: 54%; left: 13%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+    width: 3em;
+}
+.LogoPost {
+    position: absolute; /* postulat de départ */
+    top: 66%; left: 13%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+    width: 3em;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    background-color:#222831 ;
+    width: 16.6%;
+    height: 100%;
+    z-index: 999 ;
+    top: 31px;
+    /*
+    transform:translateX(-100%) ; 
+    transition: transform 1s ease-in-out ; */
+}
+.menu .line{
+    margin: 15px;
+    color: #EEEEEE;
+}
+.menu .line label {
+    color: #EEEEEE;
+    margin: 5px;
+}
+
+/* Set black background color, white text and some padding */
+footer {
     background-color: #555;
     color: white;
     padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-    .sidenav {
-      height: auto;
-      padding: 15px;
-    }
-    
-    .row.content {height:auto;} 
-    }
-    .LogoCenter {
-      position: absolute; /* postulat de départ */
-      top: 50%; left: 50%; /* à 50%/50% du parent référent */
-      transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-      width: 6em;
-    
-    
-    }
-    h2{ 
-      color: white;
-    }
-    .img{
-      
-      width: 45px;
-      height: 45px;
-
-      
-    }
-    
-    .titleSidenav{ 
-      color: white;
-      padding-left: 50px;
-    }
-
-    .titleSidenav:hover, .titleSidenav:focus {
-      color: white;
-      text-decoration: none;
-    }
-
-    .LogoDash {
-      position: absolute; /* postulat de départ */
-      top: 42%; left: 13%; /* à 50%/50% du parent référent */
-      transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-      width: 3em;
-    
-    }
-
-     .LogoLike {
-      position: absolute; /* postulat de départ */
-      top: 54%; left: 13%; /* à 50%/50% du parent référent */
-      transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-      width: 3em;
-    
-    }
-
-    .LogoPost {
-      position: absolute; /* postulat de départ */
-      top: 66%; left: 13%; /* à 50%/50% du parent référent */
-      transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-      width: 3em;
-    
-    }
-
-
-    .menu {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      position: fixed;
-      left: 0;
-      background-color:#222831 ;
-      width: 16.6%;
-      height: 100%;
-      z-index: 999 ;
-      top: 31px;
-      
-
-      
-      /*
-      transform:translateX(-100%) ; 
-      transition: transform 1s ease-in-out ; */
-
-
-    }
-
-    .menu .line{
-      margin: 15px;
-      
-    }
-
-    .menu .line label {
-      color: #EEEEEE;
-      margin: 5px;
-    }
+}
