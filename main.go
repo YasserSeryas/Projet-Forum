@@ -13,7 +13,7 @@ import (
 var Database, _ = sql.Open("sqlite3", "../Bdd/ProjetForumBDD.db")
 
 func main() {
-
+	h.ShowBdd()
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
@@ -21,6 +21,8 @@ func main() {
 	http.Handle("/home/", http.NotFoundHandler())
 	http.HandleFunc("/homeLogged", h.HomeLogged)
 	http.Handle("/homeLogged/", http.NotFoundHandler())
+	http.HandleFunc("/dashboard", h.Dashboard)
+	http.Handle("/dashboard/", http.NotFoundHandler())
 	http.HandleFunc("/login", h.Login)
 	http.Handle("login/", http.NotFoundHandler())
 	http.HandleFunc("/register", h.Register)
@@ -29,6 +31,10 @@ func main() {
 	http.Handle("/liked/", http.NotFoundHandler())
 	http.HandleFunc("/posted", h.Posted)
 	http.Handle("/posted/", http.NotFoundHandler())
+	http.HandleFunc("/insert", h.Insert)
+	http.Handle("/insert/", http.NotFoundHandler())
+	http.HandleFunc("/AddComment", h.AddComment)
+	http.Handle("/AddComment/", http.NotFoundHandler())
 
 	//Load static folder # Front end
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))

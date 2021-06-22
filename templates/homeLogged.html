@@ -51,29 +51,35 @@
 
       <div class="container">
         <h1 class="">Welcome, Type Your Post</h1>
-        <form target="_blank" name="tweet" action="/insert" method="get"> 
-        <input type="hidden" name="original_referer" value="/insert"> 
-        <input type="hidden" name="source" value="tweetbutton"> 
-        <!--must provide twitter with a url string that has characters in it or else they will add the current url into the tweet-->
-        <input type="hidden" name="url" value="foobartheroobar">
-          
-         <textarea id="textar" name="text" maxlength="500"></textarea>
-      
-      <select name="Category" id="Category-select">
-          <option value="">--Please choose a Category--</option>
+        <div id="test">
+          <form action="/insert" method="post">
+          <label id="font1" for="choice">Choix de la categorie</label>
+          <select name="choice" id="choice" required>
+               <option value="">--Please choose a Category--</option>
           <option value="Gaming">Gaming</option>
           <option value="Politics">Politics</option>
           <option value="History">History</option>
           <option value="LifeStory">LifeStory</option>
           <option value="Sport">Sport</option>
-          <option value="Funny">Funny</option>
-      </select>
-        <input type="submit" value="Post this" id="button"/>    
+          <option value="Memes">Memes</option>
+          <option value="Environnement">Environnement</option>
+          <option value="Art">Art</option>
+          <option value="Geography">Geography</option>
+            
+          </select>
+      </div>
+      <div id="bandeau">
+        <textarea id="Usertxt" name="Usertxt"
+            rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*" style="font-size: 25px ; background-color: #FAEBD7;font-family:OCR A Std, monospace; font-weight: bold; border: solid white 3px;"></textarea>
+        <input type="submit" Value="Valider" style="width:110px;height: 30px;font-size: 19px;font-family:Arial; font-style: oblique ; font-weight: 51; background-color: #FAEBD7">
       </form>
+      </div>
+
+     
         
       </div>
 
-        <h1>Welcome</h1>
+        
         {{range .}}
           
         <h2>User: @{{.User}}</h2>
@@ -83,7 +89,11 @@
       <p>Like :{{.Like}}</p>
       <p>Dislike: {{.Dislike}}</p>
       <p>Category: #{{.Category}}</p>
-      <p>Comment: {{.Comment}}</p>
+      <p>Comment:<br> {{.Comment}}<br> </p>
+      <form action="/AddComment" method="post">
+      <input id="myInput" value="Add Comment.." required>
+<button id="myBtn">add</button>
+</form>
       <p>Creation Date :{{.CreationDate}}</p>
     
       {{end}}
