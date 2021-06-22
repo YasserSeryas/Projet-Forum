@@ -164,9 +164,13 @@ h2{
     height: 100%;
     z-index: 999 ;
     top: 31px;
-    /*
-    transform:translateX(-100%) ; 
-    transition: transform 1s ease-in-out ; */
+    
+    transform:translateX(-100%) ;
+    transition: transform 1s ease-in-out ; 
+}
+.menu.isOpen {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
 }
 .menu .line{
     margin: 15px;
@@ -176,6 +180,11 @@ h2{
     color: #EEEEEE;
     margin: 5px;
 }
+
+.en-tete {
+    cursor: pointer;
+}
+
 
 /* Set black background color, white text and some padding */
 footer {
