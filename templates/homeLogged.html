@@ -81,7 +81,7 @@
 
         
         {{range .}}
-          
+    <div class="Post">
         <h2>User: @{{.User}}</h2>
         
     
@@ -91,11 +91,12 @@
       <p>Category: #{{.Category}}</p>
       <p>Comment:<br> {{.Comment}}<br> </p>
       <form action="/AddComment" method="post">
-      <input id="myInput" value="Add Comment.." required>
-<button id="myBtn">add</button>
+        <textarea id="Usertxt" name="Usertxt"
+        rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*"></textarea>
+    <input type="submit" Value="Valider">
 </form>
       <p>Creation Date :{{.CreationDate}}</p>
-    
+    </div>
       {{end}}
     </div>
     </div>

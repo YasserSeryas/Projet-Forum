@@ -42,9 +42,9 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 }
 func AddComment(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	stmt, _ := Database.Prepare("UPDATE Post SET Comment='' ||Comment where [Id-Post] = 1")
+	stmt, _ := Database.Prepare("UPDATE Post SET Comment=?||Comment where [Id-Post] = $1")
 
-	formText := r.PostForm.Get("myInput")
+	formText := r.PostForm.Get("Usertxt") + "  "
 
 	stmt.Exec(formText)
 	fmt.Println("here", formText)
