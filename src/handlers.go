@@ -9,7 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
+var Database, _ = sql.Open("sqlite3", "./BDD/ProjetForumBDD-2.db")
 var Result = []Post{}
 
 func ShowBdd() {
