@@ -89,7 +89,11 @@
       <p>Like :{{.Like}}</p>
       <p>Dislike: {{.Dislike}}</p>
       <p>Category: #{{.Category}}</p>
-      <p>Comment: {{.Comment}}</p>
+      <p>Comment:<br> {{.Comment}}<br> </p>
+      <form action="/AddComment" method="post">
+      <input id="myInput" value="Add Comment.." required>
+<button id="myBtn">add</button>
+</form>
       <p>Creation Date :{{.CreationDate}}</p>
     
       {{end}}

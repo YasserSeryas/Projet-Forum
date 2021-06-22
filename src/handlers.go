@@ -26,6 +26,8 @@ func ShowBdd() {
 	}
 	rows.Close()
 }
+
+//Insert post
 func Insert(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
@@ -34,6 +36,18 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 
 	stmt.Exec("Yasser@test.com", formText, 0, 0, "", time.Now(), formSelect)
 	fmt.Println("here", formText, formSelect)
+	ShowBdd()
+	http.Redirect(w, r, "/homeLogged", 301)
+
+}
+func AddComment(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	stmt, _ := Database.Prepare("UPDATE Post SET Comment='' ||Comment where [Id-Post] = 1")
+
+	formText := r.PostForm.Get("myInput")
+
+	stmt.Exec(formText)
+	fmt.Println("here", formText)
 	ShowBdd()
 	http.Redirect(w, r, "/homeLogged", 301)
 
