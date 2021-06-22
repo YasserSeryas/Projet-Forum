@@ -1,4 +1,7 @@
-body { 
+html{overflow: hidden;}
+body{min-height:100%;height:100vh;}
+
+body {
     background-color: #222831;
 }
 
@@ -33,7 +36,7 @@ h2{
 }
 
 .box1  {
-    width: 100vh;
+    width: 50%;
     border-top: 5px solid #FFD369;
     border-left: 5px solid #FFD369;
     height: 91vh;
@@ -43,7 +46,7 @@ h2{
 .box2 {
     height: 91vh;
     overflow-y: scroll;
-    width: 100vh;
+    width: 50%;
     border-top: 5px solid #FFD369;
     border-left: 5px solid #FFD369;
     padding: 0 2%;
@@ -51,7 +54,7 @@ h2{
 .box3 {
     height: 91vh;
     overflow-y: scroll;
-    width: 100vh;
+    width: 50%;
     border-top: 5px solid #FFD369;
     border-left: 5px solid #FFD369;
     padding: 0 2%;
@@ -62,7 +65,6 @@ h2{
   
 .titleSidenav{ 
     color: white;
-    padding-left: 50px;
 }
 .titleSidenav:hover, .titleSidenav:focus {
     color: white;
@@ -79,10 +81,29 @@ h2{
 }
 
 .sidenav {
-    padding-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    padding: 0 1.5%;
     border-top:5px solid #FFD369;
     height: 100%;
     overflow: auto;
+}
+.lineSidebar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+.lineSidebar h2 {
+    margin: 0;
+    float: right;
+    margin-left: 4%;
+}
+.lineSidebar img {
+    float: left;
 }
 
 .LogoVertical{
@@ -100,7 +121,7 @@ h2{
 }
     
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {height: 450px}
+.row.content {height: 100%}
 
 /* Set gray background color and 100% height */
 .scroller {
@@ -134,7 +155,6 @@ h2{
 
 .titleSidenav{ 
     color: white;
-    padding-left: 50px;
 }
 .titleSidenav:hover, .titleSidenav:focus {
     color: white;
@@ -142,21 +162,12 @@ h2{
 }
 
 .LogoDash {
-    position: absolute; /* postulat de départ */
-    top: 42%; left: 13%; /* à 50%/50% du parent référent */
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
     width: 3em;
 }
 .LogoLike {
-    position: absolute; /* postulat de départ */
-    top: 54%; left: 13%; /* à 50%/50% du parent référent */
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
     width: 3em;
 }
 .LogoPost {
-    position: absolute; /* postulat de départ */
-    top: 66%; left: 13%; /* à 50%/50% du parent référent */
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
     width: 3em;
 }
 
@@ -189,6 +200,8 @@ h2{
     margin: 5px;
 }
 
+.header {
+}
 .en-tete {
     cursor: pointer;
     color: #EEEEEE;
@@ -207,4 +220,8 @@ footer {
     background-color: #555;
     color: white;
     padding: 15px;
+}
+
+.container-fluid.text-center, .text-left, .scrol, .box, .box1, .box2, .box3 {
+    height: 100%;
 }
