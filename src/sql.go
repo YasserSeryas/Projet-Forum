@@ -11,7 +11,7 @@ var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 var Result = []Post{}
 
 func ShowBdd() {
-	rows, _ := Database.Query("SELECT [Id-Post], User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post ORDER BY [Id-Post] desc")
+	rows, _ := Database.Query("SELECT [Id-Post], User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post")
 
 	var data Post
 
@@ -46,6 +46,7 @@ func AddComment(w http.ResponseWriter, r *http.Request) {
 
 	stmt.Exec(formText)
 	fmt.Println("Get:", formText)
+
 	ShowBdd()
 	http.Redirect(w, r, "/homeLogged", http.StatusMovedPermanently)
 
