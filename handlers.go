@@ -10,7 +10,7 @@ func Home(w http.ResponseWriter, req *http.Request) {
 	tHome, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		data := []byte(err.Error())
-		ioutil.WriteFile("test.txt", data, 0644)
+		ioutil.WriteFile("test.txt", data, 0644) 
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
