@@ -1,4 +1,5 @@
 console.log("sidebar.js loaded")
+// Implémentation en cours
 
 let header1 = document.getElementsByClassName('en-tete')[0]
 let header2 = document.getElementsByClassName('en-tete')[1]
