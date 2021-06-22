@@ -11,6 +11,7 @@ func Home(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tHome.Execute(w, nil)
@@ -21,6 +22,7 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tHomeLogged.Execute(w, nil)
@@ -31,6 +33,7 @@ func Login(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tLogin.Execute(w, nil)
@@ -41,6 +44,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tRegister.Execute(w, nil)
@@ -51,6 +55,7 @@ func Liked(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tLiked.Execute(w, nil)
@@ -61,6 +66,7 @@ func Posted(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tPosted.Execute(w, nil)
@@ -71,6 +77,7 @@ func Dashboard(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tDashboard.Execute(w, nil)
@@ -81,6 +88,7 @@ func Profile(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		data := []byte(err.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
 	tProfile.Execute(w, nil)
