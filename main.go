@@ -1,23 +1,27 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
-	"io/ioutil"
+	"log"
 	"net/http"
 
 	h "./src"
-	//_ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 )
 
-func main() {
+var Database, _ = sql.Open("sqlite3", "../Bdd/ProjetForumBDD.db")
 
-	//db, err := sql.Open("sqlite3", "./")
+func main() {
+	h.GetPosts()
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())
 	http.HandleFunc("/home", h.Home)
 	http.Handle("/home/", http.NotFoundHandler())
 	http.HandleFunc("/homeLogged", h.HomeLogged)
 	http.Handle("/homeLogged/", http.NotFoundHandler())
+	http.HandleFunc("/dashboard", h.Dashboard)
+	http.Handle("/dashboard/", http.NotFoundHandler())
 	http.HandleFunc("/login", h.Login)
 	http.Handle("login/", http.NotFoundHandler())
 	http.HandleFunc("/register", h.Register)
@@ -26,10 +30,10 @@ func main() {
 	http.Handle("/liked/", http.NotFoundHandler())
 	http.HandleFunc("/posted", h.Posted)
 	http.Handle("/posted/", http.NotFoundHandler())
-	http.HandleFunc("/dashboard", h.Dashboard)
-	http.Handle("/dashboard/", http.NotFoundHandler())
-	http.HandleFunc("/profile", h.Profile)
-	http.Handle("/profile/", http.NotFoundHandler())
+	http.HandleFunc("/insert", h.Insert)
+	http.Handle("/insert/", http.NotFoundHandler())
+	http.HandleFunc("/AddComment", h.AddComment)
+	http.Handle("/AddComment/", http.NotFoundHandler())
 
 	//Load static folder # Front end
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
@@ -40,7 +44,7 @@ func main() {
 	err := http.ListenAndServe(":2030", nil)
 
 	if err != nil {
-		data := []byte(err.Error())
-		ioutil.WriteFile("test.txt", data, 0644)
+		log.Fatal(err)
 	}
+
 }

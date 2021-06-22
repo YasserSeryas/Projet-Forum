@@ -35,16 +35,6 @@ border-left: 0px;
 height: 100%;
 }
 
-.sidenav2 {
-padding-top: 150px;
-
-border:5px solid #FFD369;
-border-bottom: 0px;
-border-right: 0px;
-border-left: 0px;
-height: 100%;
-}
-
 .scroller {
   
 height: 673px;
@@ -60,6 +50,8 @@ scrollbar-width: thin;
   
 
 }
+
+
 
 /* Set black background color, white text and some padding */
 footer {
@@ -87,15 +79,4 @@ padding: 15px;
 }
 h2{ 
   color: white;
-}
-.img{
-  
-  width: 45px;
-	height: 45px;
-  
-  
-}
-
-h1{ 
-  color: black;
 }
