@@ -40,12 +40,14 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 //Add a Comment
 func AddComment(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	stmt, _ := Database.Prepare("UPDATE Post SET Comment=?||Comment where [Id-Post] = 1")
+
+	stmt, _ := Database.Prepare("UPDATE Post SET Comment=?||Comment where [Id-Post]= ?")
 
 	formText := r.PostForm.Get("Usertxt") + "  "
-
-	stmt.Exec(formText)
+	GetId := r.PostForm.Get("Idpost")
+	stmt.Exec("Yasser : "+formText, GetId)
 	fmt.Println("Get:", formText)
+	fmt.Println("GetID:", GetId)
 
 	ShowBdd()
 	http.Redirect(w, r, "/homeLogged", http.StatusMovedPermanently)
