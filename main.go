@@ -21,8 +21,6 @@ func main() {
 	http.Handle("/home/", http.NotFoundHandler())
 	http.HandleFunc("/homeLogged", h.HomeLogged)
 	http.Handle("/homeLogged/", http.NotFoundHandler())
-	http.HandleFunc("/dashboard", h.Dashboard)
-	http.Handle("/dashboard/", http.NotFoundHandler())
 	http.HandleFunc("/login", h.Login)
 	http.Handle("login/", http.NotFoundHandler())
 	http.HandleFunc("/register", h.Register)
