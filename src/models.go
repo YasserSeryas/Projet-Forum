@@ -30,5 +30,5 @@ type Like struct {
 	User      string
 	IsLike    bool
 	IsDislike bool
-	date      time.Time
+	Date      time.Time
 }

@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "driver": "SQLite",
+            "database": "C:\\Users\\Serya\\OneDrive\\Documents\\GitHub\\Projet-Forum\\Bdd\\ProjetForumBDD.db",
+            "name": "Project"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

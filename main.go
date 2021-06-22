@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,8 +8,6 @@ import (
 	h "./src"
 	_ "github.com/mattn/go-sqlite3"
 )
-
-var Database, _ = sql.Open("sqlite3", "../Bdd/ProjetForumBDD.db")
 
 func main() {
 	h.ShowBdd()
