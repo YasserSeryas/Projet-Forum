@@ -34,21 +34,30 @@ h2{
 
 .box1  {
     width: 100vh;
-    border: 5px solid #FFD369;
+    border-top: 5px solid #FFD369;
+    border-left: 5px solid #FFD369;
     height: 91vh;
     overflow-y: scroll;
+    padding: 0 2%;
 }
 .box2 {
     height: 91vh;
     overflow-y: scroll;
     width: 100vh;
-    border:5px solid #FFD369;
+    border-top: 5px solid #FFD369;
+    border-left: 5px solid #FFD369;
+    padding: 0 2%;
 }
 .box3 {
     height: 91vh;
     overflow-y: scroll;
     width: 100vh;
-    border:5px solid #FFD369;
+    border-top: 5px solid #FFD369;
+    border-left: 5px solid #FFD369;
+    padding: 0 2%;
+}
+.box1::-webkit-scrollbar, .box2::-webkit-scrollbar, .box3::-webkit-scrollbar {
+    display: none;
 }
   
 .titleSidenav{ 
@@ -71,11 +80,9 @@ h2{
 
 .sidenav {
     padding-top: 150px;
-    border:5px solid #FFD369;
-    border-bottom: 0px;
-    border-right: 0px;
-    border-left: 0px;
+    border-top:5px solid #FFD369;
     height: 100%;
+    overflow: auto;
 }
 
 .LogoVertical{
@@ -164,6 +171,7 @@ h2{
     height: 100%;
     z-index: 999 ;
     top: 31px;
+    overflow: hidden;
     
     transform:translateX(-100%) ;
     transition: transform 1s ease-in-out ; 
@@ -183,6 +191,14 @@ h2{
 
 .en-tete {
     cursor: pointer;
+    color: #EEEEEE;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+}
+
+hr {
+    width: 75%;
 }
 
 
