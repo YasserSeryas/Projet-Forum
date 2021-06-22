@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"database/sql"
+	"fmt"
 	"html/template"
 	"net/http"
 	"time"
@@ -13,29 +14,46 @@ var Database, _ = sql.Open("sqlite3", "./BDD/ProjetForumBDD-2.db")
 var Result = []Post{}
 
 func ShowBdd() {
-	rows, _ := Database.Query("SELECT User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post")
+	rows, _ := Database.Query("SELECT [Id-Post], User, Content, Like, Dislike, Comment , CreationDate, Category FROM Post")
 
 	var data Post
 
 	for rows.Next() {
-		rows.Scan(&data.User, &data.Content, &data.Like, &data.Dislike, &data.Comment, &data.CreationDate, &data.Category)
+		rows.Scan(&data.IdPost, &data.User, &data.Content, &data.Like, &data.Dislike, &data.Comment, &data.CreationDate, &data.Category)
 		//dat := (" User : " + data.User + "\n") + (" Content :" + data.Content + "\n") + (" Like : " + strconv.Itoa(data.Like) + "\n") + (" Dislike : " + strconv.Itoa(data.Dislike) + "\n") + (" Comment : " + data.Comment + "\n") + (" Creation Date : " + data.CreationDate.String() + "\n") + (" Category : " + data.Category + "\n")
 
 		Result = append(Result, data)
 	}
 	rows.Close()
+}
+
+//Insert post
+func Insert(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
+	formSelect := r.PostForm.Get("choice")
+	formText := r.PostForm.Get("Usertxt")
+
+	stmt.Exec("Yasser@test.com", formText, 0, 0, "", time.Now(), formSelect)
+	fmt.Println("here", formText, formSelect)
+	ShowBdd()
+	http.Redirect(w, r, "/homeLogged", 301)
 
 }
-func Insert(w http.ResponseWriter, r *http.Request) {
-	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Comment, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
-	formSelect := r.PostForm.Get("Category")
-	formText := r.PostForm.Get("text")
+func AddComment(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	stmt, _ := Database.Prepare("UPDATE Post SET Comment='' ||Comment where [Id-Post] = 1")
 
-	stmt.Exec("Yasser", formText, 0, 0, "", time.Now(), formSelect)
+	formText := r.PostForm.Get("myInput")
+
+	stmt.Exec(formText)
+	fmt.Println("here", formText)
+	ShowBdd()
+	http.Redirect(w, r, "/homeLogged", 301)
 
 }
 func Home(w http.ResponseWriter, req *http.Request) {
-	ShowBdd()
+
 	tHome, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		w.WriteHeader(400)
@@ -45,6 +63,7 @@ func Home(w http.ResponseWriter, req *http.Request) {
 }
 
 func HomeLogged(w http.ResponseWriter, req *http.Request) {
+
 	tHomeLogged, err := template.ParseFiles("templates/homeLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
