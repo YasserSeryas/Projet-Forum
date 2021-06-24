@@ -107,6 +107,9 @@
 .check {
     margin-left: 10px;
 }
+.last.check {
+    margin-bottom: 25%;
+}
 
 .check .categoryText {
     color: #EEEEEE;
