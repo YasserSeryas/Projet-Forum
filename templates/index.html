@@ -44,24 +44,26 @@
         <h1>Welcome</h1>
         
 <ul>
-  <div class="data">
+  <div class="Post">
     {{range .}}
       
-        <h2>User: @{{.PostData.User}}</h2>
-        
+    <h2>User: @{{.PostData.User}}</h2>
     
-      <p>Content: {{.PostData.Content}}</p>
-      <p>Like :{{.PostData.Like}}</p>
-      <p>Dislike: {{.PostData.Dislike}}</p>
-      <p>Category: #{{.PostData.Category}}</p>
-      
-      <p>Creation Date :{{.PostData.CreationDate}}</p>
-     
-          
-        
 
-    
-      {{end}}
+  <p>Content: {{.PostData.Content}}</p>
+  <p>Like :{{.PostData.Like}}</p>
+  <p>Dislike: {{.PostData.Dislike}}</p>
+  <p>Category: #{{.PostData.Category}}</p>
+  
+  <p>Creation Date :{{.PostData.CreationDate}}</p>
+  
+  {{range $Comment := .Comments}}
+      
+      <p>Comment: {{$Comment.UserName}} : {{$Comment.CommentContent}}</p>
+
+
+        {{end}}
+        {{end}}
      
     </div>
     </div>
