@@ -13,6 +13,7 @@ float: left;
 }
 /* Remove the navbar's default margin-bottom and rounded borders */ 
 .navbar {
+ 
   height:75px;
 background-color: #222831;
 margin-bottom: 0;
@@ -33,20 +34,34 @@ border-right: 0px;
 border-left: 0px;
 height: 100%;
 }
+
+.sidenav2 {
+padding-top: 150px;
+
+border:5px solid #FFD369;
+border-bottom: 0px;
+border-right: 0px;
+border-left: 0px;
+height: 100%;
+}
+
 .scroller {
   
-height: 750px;
+height: 673px;
 overflow-y: scroll;
 scrollbar-color: rebeccapurple green;
 scrollbar-width: thin;
 }
 .text-left {
-  
-height: 100vh;
+  height: 90vh;
   border:5px solid #FFD369;
   border-bottom: 0px;
+  
+  
 
 }
+
+
 
 /* Set black background color, white text and some padding */
 footer {
@@ -61,6 +76,7 @@ padding: 15px;
   height: auto;
   padding: 15px;
 }
+
 .row.content {height:auto;} 
 }
 .LogoCenter {
@@ -73,4 +89,15 @@ padding: 15px;
 }
 h2{ 
   color: white;
+}
+.img{
+  
+  width: 45px;
+	height: 45px;
+  
+  
+}
+
+h1{ 
+  color: black;
 }
