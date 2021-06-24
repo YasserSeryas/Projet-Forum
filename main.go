@@ -4,12 +4,27 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-
+	"log"
 	h "./src"
+	"os"
 	//_ "github.com/mattn/go-sqlite3"
 )
 
+
 func main() {
+
+const (
+	ConstLogFilename       string        = "test.txt"
+)
+
+
+	logFile, err := os.OpenFile(ConstLogFilename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		fmt.Printf("[ERROR] - Error opening file: %v", err)
+		os.Exit(6)    //ErrorOpenFile
+	}
+	defer logFile.Close()
+	h.Logger = log.New(logFile, "TEST - ", log.LstdFlags)
 
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
@@ -37,10 +52,10 @@ func main() {
 
 	//Run and listen to the server
 	fmt.Println("listening on: http://localhost:2030/home")
-	err := http.ListenAndServe(":2030", nil)
+	errServe := http.ListenAndServe(":2030", nil)
 
-	if err != nil {
-		data := []byte(err.Error())
+	if errServe != nil {
+		data := []byte(errServe.Error())
 		ioutil.WriteFile("test.txt", data, 0644)
 	}
 }

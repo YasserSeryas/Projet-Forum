@@ -1,2 +1,2 @@
-
-open templates/test4.html: no such file or directory
+TEST - 2021/06/24 09:43:15 Erreur interne du serveur sur la page: Posted | %!(EXTRA string=open templates/posteded.html: no such file or directory)
+TEST - 2021/06/24 09:43:34 Erreur interne du serveur sur la page: Posted | %!(EXTRA string=open templates/posteded.html: no such file or directory)
