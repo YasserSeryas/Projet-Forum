@@ -62,11 +62,15 @@ func Register(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(400)
 	}
 
-	// if req.Method == "POST" {
-
-	// }
-
-	tRegister.Execute(w, nil)
+	if req.Method == "POST" {
+		if CreateAccount(req) {
+			tRegister.Execute(w, nil)
+		} else {
+			http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
+		}
+	} else {
+		tRegister.Execute(w, nil)
+	}
 }
 
 func Liked(w http.ResponseWriter, req *http.Request) {

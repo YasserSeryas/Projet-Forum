@@ -10,7 +10,9 @@ import (
 
 var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 
-// Add a post
+// ---CREATE---
+
+// Add a post to DB
 func AddPost(r *http.Request) {
 	r.ParseForm()
 	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
@@ -23,7 +25,7 @@ func AddPost(r *http.Request) {
 	GetPosts()
 }
 
-// Add a comment | A FINIR |
+// Add a comment to DB | A FINIR | <-----
 func AddComment(r *http.Request) {
 	r.ParseForm()
 	var UserName string
@@ -39,20 +41,24 @@ func AddComment(r *http.Request) {
 
 	formText := r.PostForm.Get("Usertxt")
 	GetId := r.PostForm.Get("Idpost")
-	stmt.Exec(GetId, "User", formText, UserName)
+	stmt.Exec(GetId, "ValeurBrute", formText, UserName)
 	fmt.Println("Get:", formText)
 	fmt.Println("GetID:", GetId)
 	stmt.Close()
 	GetComments()
 }
 
+// Add an account to DB
 func AddAccount(newAccount Account) {
 	statement, _ := Database.Prepare("INSERT INTO Account (name, email, hashPwd) VALUES(?, ?, ?)")
 	statement.Exec(newAccount.Name, newAccount.Email, newAccount.HashPwd)
 	statement.Close()
 }
 
+// ---READ---
+
 // Formerly ShowPost()
+// Get all posts from DB
 func GetPosts() {
 	rows, _ := Database.Query("SELECT [Id-Post], User, Content, Like, Dislike, CreationDate, Category FROM Post")
 
@@ -67,6 +73,7 @@ func GetPosts() {
 	rows.Close()
 }
 
+// Get all comments from DB
 func GetComments() {
 	for i, val := range AllData {
 		Id := val.PostData.IdPost
@@ -88,6 +95,7 @@ func GetComments() {
 	}
 }
 
+// Get all accounts from DB
 func GetAccounts() {
 	rows, _ := Database.Query("SELECT * FROM Account")
 	defer rows.Close()
@@ -99,6 +107,7 @@ func GetAccounts() {
 	}
 }
 
+// Get all sessions from DB
 func GetSessions() {
 	rows, _ := Database.Query("SELECT * FROM Session")
 	defer rows.Close()
@@ -109,12 +118,20 @@ func GetSessions() {
 	}
 }
 
+// ---UPDATE---
+
+// ---DELETE---
+
+// Delete session in DB corresponding to userID specified
 func DeleteSession(userID string) {
 	stmt, _ := Database.Prepare("DELETE FROM Session WHERE userID = ?;")
 	stmt.Exec(userID)
 	stmt.Close()
 }
 
+// ---OTHER---
+
+// Print in terminal accounts informations
 func PrintBDD() {
 	result, errSelect := Database.Query("SELECT name, email, hashPwd FROM Account")
 	if errSelect != nil {
