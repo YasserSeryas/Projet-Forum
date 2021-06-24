@@ -10,7 +10,9 @@ import (
 )
 
 func main() {
-	h.ShowBdd()
+	h.ShowPost()
+	h.GetComment()
+
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
 	http.Handle("/", http.NotFoundHandler())

@@ -9,7 +9,7 @@ type Account struct {
 	SessionUUID string
 }
 
-type Categorie struct {
+type Category struct {
 	Name  string
 	Color int
 }
@@ -20,15 +20,24 @@ type Post struct {
 	Content      string
 	Like         int
 	Dislike      int
-	Comment      string
 	CreationDate time.Time
 	Category     string
 }
-
+type Comment struct {
+	IdComment      int
+	IdPost         int
+	IdUser         string
+	CommentContent string
+	UserName       string
+}
 type Like struct {
 	IdPost    int
 	User      string
 	IsLike    bool
 	IsDislike bool
 	Date      time.Time
+}
+type TemplateData struct {
+	PostData Post
+	Comments []Comment
 }

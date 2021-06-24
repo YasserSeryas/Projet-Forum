@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link href="../static/css/homeLogged.css" rel="stylesheet">
-  <script src="../static/js/include.js"></script>
 </head>
 <body>
 
@@ -78,29 +77,42 @@
      
         
       </div>
+              
 
-        
-        {{range .}}
+
+
+      
     <div class="Post">
   
       
-        <h2>User: @{{.User}}</h2>
-        
+      {{range .}}
+      
+      <h2>User: @{{.PostData.User}}</h2>
+      
+  
+    <p>Content: {{.PostData.Content}}</p>
+    <p>Like :{{.PostData.Like}}</p>
+    <p>Dislike: {{.PostData.Dislike}}</p>
+    <p>Category: #{{.PostData.Category}}</p>
     
-      <p>Content: {{.Content}}</p>
-      <p>Like :{{.Like}}</p>
-      <p>Dislike: {{.Dislike}}</p>
-      <p>Category: #{{.Category}}</p>
-      <p>Comment:<br> {{.Comment}}<br> </p>
-      <form action="/AddComment" method="post">
-        <input type="hidden" id="Idpost" name="Idpost" value="{{.IdPost}}">
-        <textarea id="Usertxt" name="Usertxt"
-        rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*"></textarea>
-    <input type="submit" Value="Valider">
-</form>
-      <p>Creation Date :{{.CreationDate}}</p>
+    <p>Creation Date :{{.PostData.CreationDate}}</p>
+    
+    {{range $Comment := .Comments}}
+        
+        <p>Comment: {{$Comment.UserName}} : {{$Comment.CommentContent}}</p>
+
+ 
+          {{end}}
+        <form action="/AddComment" method="post">
+              <input type="hidden" id="Idpost" name="Idpost" value="{{.PostData.IdPost}}">
+                 <textarea id="Usertxt" name="Usertxt"
+                  rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*"></textarea>
+              <input type="submit" Value="Valider">
+        </form>
+
+          {{end}}
     </div>
-      {{end}}
+    
     </div>
     </div>
     <div class="col-sm-2 sidenav">
@@ -114,8 +126,6 @@
     </div>
   </div>
 </div>
-<script>
-    includeHTML();
-    </script>
+ 
 </body>
 </html>

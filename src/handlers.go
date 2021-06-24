@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 
@@ -14,7 +15,8 @@ func Home(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(400)
 	}
 
-	tHome.Execute(w, Result)
+	tHome.Execute(w, Result2)
+
 }
 
 func HomeLogged(w http.ResponseWriter, req *http.Request) {
@@ -24,7 +26,8 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(400)
 	}
 
-	tHomeLogged.Execute(w, Result)
+	er := tHomeLogged.Execute(w, Result2)
+	fmt.Println(er)
 }
 func Dashboard(w http.ResponseWriter, req *http.Request) {
 	tDashboard, err := template.ParseFiles("templates/dashboard.html")
@@ -32,7 +35,8 @@ func Dashboard(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(400)
 	}
 
-	tDashboard.Execute(w, Result)
+	tDashboard.Execute(w, nil)
+
 }
 
 func Login(w http.ResponseWriter, req *http.Request) {
