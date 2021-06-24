@@ -1,4 +1,4 @@
-package helpers
+package src
 
 import (
 	"database/sql"
@@ -84,7 +84,7 @@ func AddComment(w http.ResponseWriter, r *http.Request) {
 	row := stmtSelect.QueryRow("ValeurBrute")
 	err := row.Scan(&UserName)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalln("In AddComment :", err)
 	}
 
 	stmt, _ := Database.Prepare("INSERT INTO Comment( [Id-Post], [Id-User], [Comment-Content], UserName) VALUES ( ?, ?, ?, ? );")
