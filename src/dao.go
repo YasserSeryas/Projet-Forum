@@ -10,22 +10,65 @@ import (
 
 var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 
-var Result1 = []Comment{}
-var Result2 = []TemplateData{}
+// Add a post
+func AddPost(r *http.Request) {
+	r.ParseForm()
+	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
+	formSelect := r.PostForm.Get("choice")
+	formText := r.PostForm.Get("Usertxt")
 
-/*func ShowComment() {
-	rows, _ := Database.Query("SELECT [Id-Comment], [Id-Post], [Id-User], [Comment-Content] FROM Comment;")
-	var data Comment
+	stmt.Exec("Yasser@test.com", formText, 0, 0, time.Now(), formSelect)
+	fmt.Println("here", formText, formSelect)
+	stmt.Close()
+	GetPosts()
+}
+
+// Add a comment | A FINIR |
+func AddComment(r *http.Request) {
+	r.ParseForm()
+	var UserName string
+	stmtSelect, _ := Database.Prepare("SELECT Name FROM Account WHERE Email = ?  ")
+	defer stmtSelect.Close()
+	row := stmtSelect.QueryRow("ValeurBrute")
+	err := row.Scan(&UserName)
+	if err != nil {
+		log.Fatalln("In AddComment :", err)
+	}
+
+	stmt, _ := Database.Prepare("INSERT INTO Comment( [Id-Post], [Id-User], [Comment-Content], UserName) VALUES ( ?, ?, ?, ? );")
+
+	formText := r.PostForm.Get("Usertxt")
+	GetId := r.PostForm.Get("Idpost")
+	stmt.Exec(GetId, "User", formText, UserName)
+	fmt.Println("Get:", formText)
+	fmt.Println("GetID:", GetId)
+	stmt.Close()
+	GetComments()
+}
+
+func AddAccount(newAccount Account) {
+	statement, _ := Database.Prepare("INSERT INTO Account (name, email, hashPwd) VALUES(?, ?, ?)")
+	statement.Exec(newAccount.Name, newAccount.Email, newAccount.HashPwd)
+	statement.Close()
+}
+
+// Formerly ShowPost()
+func GetPosts() {
+	rows, _ := Database.Query("SELECT [Id-Post], User, Content, Like, Dislike, CreationDate, Category FROM Post")
+
+	var data Post
+	var TempData TemplateData
 	for rows.Next() {
-		rows.Scan(&data.IdComment, &data.IdPost, &data.IdUser, &data.CommentContent)
-
-		Result1 = append(Result1, data)
+		rows.Scan(&data.IdPost, &data.User, &data.Content, &data.Like, &data.Dislike, &data.CreationDate, &data.Category)
+		TempData.PostData = data
+		AllData = append(AllData, TempData)
 
 	}
 	rows.Close()
-}*/
-func GetComment() {
-	for i, val := range Result2 {
+}
+
+func GetComments() {
+	for i, val := range AllData {
 		Id := val.PostData.IdPost
 		fmt.Println("Id=", Id)
 		stmt, _ := Database.Prepare("SELECT [Id-Comment], [Id-Post], [Id-User], [Comment-Content], UserName FROM Comment WHERE [Id-Post] = ?  ")
@@ -41,62 +84,49 @@ func GetComment() {
 
 			fmt.Println(data)
 		}
-		Result2[i].Comments = data
-
+		AllData[i].Comments = data
 	}
-
 }
-func ShowPost() {
-	rows, _ := Database.Query("SELECT [Id-Post], User, Content, Like, Dislike, CreationDate, Category FROM Post")
 
-	var data Post
-	var TempData TemplateData
+func GetAccounts() {
+	rows, _ := Database.Query("SELECT * FROM Account")
+	defer rows.Close()
+
 	for rows.Next() {
-		rows.Scan(&data.IdPost, &data.User, &data.Content, &data.Like, &data.Dislike, &data.CreationDate, &data.Category)
-		TempData.PostData = data
-		Result2 = append(Result2, TempData)
-
+		var account Account
+		rows.Scan(&account.Email, &account.Name, &account.HashPwd, &account.SessionUUID)
+		Accounts = append(Accounts, account)
 	}
-	rows.Close()
 }
 
-//Insert a post
-func Insert(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
-	formSelect := r.PostForm.Get("choice")
-	formText := r.PostForm.Get("Usertxt")
-
-	stmt.Exec("Yasser@test.com", formText, 0, 0, time.Now(), formSelect)
-	fmt.Println("here", formText, formSelect)
-	stmt.Close()
-	ShowPost()
-
-	http.Redirect(w, r, "/homeLogged", http.StatusMovedPermanently)
-
+func GetSessions() {
+	rows, _ := Database.Query("SELECT * FROM Session")
+	defer rows.Close()
+	for rows.Next() {
+		var session Session
+		rows.Scan(&session.SessionUUID, &session.UserID)
+		Sessions = append(Sessions, session)
+	}
 }
 
-//Add a Comment
-func AddComment(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	var UserName string
-	stmtSelect, _ := Database.Prepare("SELECT Name FROM Account WHERE Email = ?  ")
-	row := stmtSelect.QueryRow("ValeurBrute")
-	err := row.Scan(&UserName)
-	if err != nil {
-		log.Fatalln("In AddComment :", err)
-	}
-
-	stmt, _ := Database.Prepare("INSERT INTO Comment( [Id-Post], [Id-User], [Comment-Content], UserName) VALUES ( ?, ?, ?, ? );")
-
-	formText := r.PostForm.Get("Usertxt")
-	GetId := r.PostForm.Get("Idpost")
-	stmt.Exec(GetId, "User", formText, UserName)
-	fmt.Println("Get:", formText)
-	fmt.Println("GetID:", GetId)
+func DeleteSession(userID string) {
+	stmt, _ := Database.Prepare("DELETE FROM Session WHERE userID = ?;")
+	stmt.Exec(userID)
 	stmt.Close()
-	ShowPost()
+}
 
-	http.Redirect(w, r, "/homeLogged", http.StatusMovedPermanently)
-
+func PrintBDD() {
+	result, errSelect := Database.Query("SELECT name, email, hashPwd FROM Account")
+	if errSelect != nil {
+		fmt.Print("In showBDD : errSelect : ")
+		log.Fatal(errSelect)
+	}
+	for result.Next() {
+		var name string
+		var email string
+		var hashPwd string
+		result.Scan(&name, &email, &hashPwd)
+		fmt.Println(name, email, hashPwd)
+	}
+	result.Close()
 }

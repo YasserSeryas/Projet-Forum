@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	src.ShowPost()
-	src.GetComment()
+	src.GetPosts()
+	src.GetComments()
 
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
@@ -30,10 +30,6 @@ func main() {
 	http.Handle("/liked/", http.NotFoundHandler())
 	http.HandleFunc("/posted", src.Posted)
 	http.Handle("/posted/", http.NotFoundHandler())
-	http.HandleFunc("/insert", src.Insert)
-	http.Handle("/insert/", http.NotFoundHandler())
-	http.HandleFunc("/AddComment", src.AddComment)
-	http.Handle("/AddComment/", http.NotFoundHandler())
 
 	//Load static folder # Front end
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
