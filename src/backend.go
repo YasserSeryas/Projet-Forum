@@ -1,7 +1,6 @@
 package src
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -44,12 +43,18 @@ func CreateAccount(req *http.Request) bool {
 	return isGoodSecondPwd && isGoodEmail && isGoodPwd && isGoodMX && emailDoesntExist
 }
 
+// A FINIR <--------------------------------------
+func CreatePost(req *http.Request) {
+	var newPost Post
+	newPost.User = GetUserFromCookie(req)
+	AddPost(newPost)
+}
+
 // Password hashing function
 func HashPassword(password string) string {
 	hashedPwd, errHash := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if errHash != nil {
-		fmt.Print("Failed to hash password : ")
-		log.Fatal(errHash)
+		log.Fatalln("Failed to hash password : ", errHash)
 	}
 	return string(hashedPwd)
 }
@@ -62,7 +67,6 @@ func CheckPassword(password string, hashedPwd string) error {
 // Active session test function
 func HasActiveSession(user string) bool {
 	for _, session := range Sessions {
-		fmt.Println(session.UserID)
 		if session.UserID == user {
 			return true
 		}
@@ -70,13 +74,13 @@ func HasActiveSession(user string) bool {
 	return false
 }
 
-// Session update function
+// Session's update function
 func UpdateSessionsBDD(req *http.Request, user string) {
 	cookie, errCookie := req.Cookie("isLogged")
 	if errCookie == http.ErrNoCookie {
 		DeleteSession(user)
 	} else if errCookie != nil {
-		log.Fatalln("In HomeLogged : errCookie :", errCookie)
+		log.Fatalln("In UpdateSessionsBDD : errCookie :", errCookie)
 	} else {
 		if cookie.Value == "0" {
 			DeleteSession(user)
@@ -91,9 +95,8 @@ func CheckSession(w http.ResponseWriter, req *http.Request) bool {
 	if errCookie == http.ErrNoCookie {
 		http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
 	} else if errCookie != nil {
-		log.Fatalln("In HomeLogged : errCookie :", errCookie)
+		log.Fatalln("In CheckSession : errCookie :", errCookie)
 	}
-
 	for _, session := range Sessions {
 		if session.SessionUUID == cookie.Value {
 			cookie.MaxAge = AGE_SESSION
@@ -102,4 +105,22 @@ func CheckSession(w http.ResponseWriter, req *http.Request) bool {
 	}
 
 	return false
+}
+
+// Get user ID from a "isLogged" cookie
+func GetUserFromCookie(req *http.Request) string {
+	cookie, errCookie := req.Cookie("isLogged")
+	userID := ""
+
+	if errCookie == http.ErrNoCookie {
+		return userID
+	}
+
+	for _, session := range Sessions {
+		if session.SessionUUID == cookie.Value {
+			userID = session.UserID
+		}
+	}
+
+	return userID
 }

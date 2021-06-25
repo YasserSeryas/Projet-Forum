@@ -13,16 +13,12 @@ var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 // ---CREATE---
 
 // Add a post to DB
-func AddPost(r *http.Request) {
-	r.ParseForm()
+func AddPost(newPost Post) {
 	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, NbrLike, NbrDislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
-	formSelect := r.PostForm.Get("choice")
-	formText := r.PostForm.Get("Usertxt")
 
-	stmt.Exec("Yasser@test.com", formText, 0, 0, time.Now(), formSelect)
-	fmt.Println("here", formText, formSelect)
+	stmt.Exec(newPost.User, newPost.Content, 0, 0, time.Now(), newPost.Category)
 	stmt.Close()
-	GetPosts()
+	GetPosts() // Update struct go variable
 }
 
 // Add a comment to DB | A FINIR | <-----
@@ -42,18 +38,16 @@ func AddComment(r *http.Request) {
 	formText := r.PostForm.Get("Usertxt")
 	GetId := r.PostForm.Get("Idpost")
 	stmt.Exec(GetId, "ValeurBrute", formText, UserName)
-	fmt.Println("Get:", formText)
-	fmt.Println("GetID:", GetId)
 	stmt.Close()
-	GetComments()
+	GetComments() // Update struct go variable
 }
 
 // Add an account to DB
 func AddAccount(newAccount Account) {
-	fmt.Println("AddAccount")
 	statement, _ := Database.Prepare("INSERT INTO Account (name, email, hashPwd) VALUES(?, ?, ?)")
 	statement.Exec(newAccount.Name, newAccount.Email, newAccount.HashPwd)
 	statement.Close()
+	GetAccounts() // Update struct go variable
 }
 
 // Add a session to DB
@@ -61,6 +55,7 @@ func AddSession(newSession Session) {
 	statement, _ := Database.Prepare("INSERT INTO Session (SessionUUID, UserID) VALUES (?, ?)")
 	statement.Exec(newSession.SessionUUID, newSession.UserID)
 	statement.Close()
+	GetSessions() // Update struct go variable
 }
 
 // ---READ---
@@ -85,7 +80,6 @@ func GetPosts() {
 func GetComments() {
 	for i, val := range AllData {
 		Id := val.PostData.IdPost
-		fmt.Println("Id=", Id)
 		stmt, _ := Database.Prepare("SELECT [Id-Comment], [Id-Post], [Id-User], [Comment-Content], UserName FROM Comment WHERE [Id-Post] = ?  ")
 		rows, _ := stmt.Query(Id)
 
@@ -97,7 +91,7 @@ func GetComments() {
 			data = append(data, Comments)
 			val.Comments = data
 
-			fmt.Println(data)
+			// fmt.Println(data)
 		}
 		AllData[i].Comments = data
 	}
@@ -118,12 +112,13 @@ func GetAccounts() {
 // Get all sessions from DB
 func GetSessions() {
 	rows, _ := Database.Query("SELECT * FROM Session")
-
+	var sessions []Session
 	for rows.Next() {
 		var session Session
 		rows.Scan(&session.SessionUUID, &session.UserID)
-		Sessions = append(Sessions, session)
+		sessions = append(Sessions, session)
 	}
+	Sessions = sessions
 	rows.Close()
 }
 
@@ -136,6 +131,7 @@ func DeleteSession(userID string) {
 	stmt, _ := Database.Prepare("DELETE FROM Session WHERE userID = ?;")
 	stmt.Exec(userID)
 	stmt.Close()
+	GetSessions() // Update struct go variable
 }
 
 // ---OTHER---

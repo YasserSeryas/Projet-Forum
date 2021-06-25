@@ -27,7 +27,6 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		w.WriteHeader(400)
 	}
-
 	if !CheckSession(w, req) {
 		http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
 	}
@@ -35,9 +34,9 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 	if req.Method == "POST" {
 		switch req.FormValue("formName") {
 		case "addPost":
-			AddPost(req)
+			CreatePost(req)
 		case "addComment":
-			AddComment(req)
+			AddComment(req) // A FINIR <--------------------------
 		}
 	}
 
@@ -82,12 +81,11 @@ func Login(w http.ResponseWriter, req *http.Request) {
 				break
 			}
 		}
+		UpdateSessionsBDD(req, userID)
 
 		if isConnected {
 			fmt.Println("Connected !")
-			UpdateSessionsBDD(req, userID)
 
-			fmt.Println(HasActiveSession(userID))
 			if !(HasActiveSession(userID)) {
 				u := uuid.Must(uuid.NewV4()).String()
 				var session Session
