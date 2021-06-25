@@ -1,9 +1,9 @@
 console.log("sidebar.js loaded")
 // Implémentation en cours
 
-let header1 = document.getElementsByClassName('en-tete')[0]
-let header2 = document.getElementsByClassName('en-tete')[1]
-let header3 = document.getElementsByClassName('en-tete')[2]
+let header1 = document.getElementsByClassName('headerTitle')[0]
+let header2 = document.getElementsByClassName('headerTitle')[1]
+let header3 = document.getElementsByClassName('headerTitle')[2]
 let menu = document.getElementsByClassName('menu')[0]
 let inputs = document.getElementsByClassName('inputCheck')
 console.log(header1)
