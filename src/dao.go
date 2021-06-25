@@ -15,7 +15,7 @@ var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 // Add a post to DB
 func AddPost(r *http.Request) {
 	r.ParseForm()
-	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, Like, Dislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
+	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, NbrLike, NbrDislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
 	formSelect := r.PostForm.Get("choice")
 	formText := r.PostForm.Get("Usertxt")
 
@@ -50,8 +50,16 @@ func AddComment(r *http.Request) {
 
 // Add an account to DB
 func AddAccount(newAccount Account) {
+	fmt.Println("AddAccount")
 	statement, _ := Database.Prepare("INSERT INTO Account (name, email, hashPwd) VALUES(?, ?, ?)")
 	statement.Exec(newAccount.Name, newAccount.Email, newAccount.HashPwd)
+	statement.Close()
+}
+
+// Add a session to DB
+func AddSession(newSession Session) {
+	statement, _ := Database.Prepare("INSERT INTO Session (SessionUUID, UserID) VALUES (?, ?)")
+	statement.Exec(newSession.SessionUUID, newSession.UserID)
 	statement.Close()
 }
 
@@ -60,7 +68,7 @@ func AddAccount(newAccount Account) {
 // Formerly ShowPost()
 // Get all posts from DB
 func GetPosts() {
-	rows, _ := Database.Query("SELECT [Id-Post], User, Content, Like, Dislike, CreationDate, Category FROM Post")
+	rows, _ := Database.Query("SELECT [Id-Post], User, Content, NbrLike, NbrDislike, CreationDate, Category FROM Post")
 
 	var data Post
 	var TempData TemplateData
@@ -98,24 +106,25 @@ func GetComments() {
 // Get all accounts from DB
 func GetAccounts() {
 	rows, _ := Database.Query("SELECT * FROM Account")
-	defer rows.Close()
 
 	for rows.Next() {
 		var account Account
-		rows.Scan(&account.Email, &account.Name, &account.HashPwd, &account.SessionUUID)
+		rows.Scan(&account.Email, &account.Name, &account.HashPwd)
 		Accounts = append(Accounts, account)
 	}
+	rows.Close()
 }
 
 // Get all sessions from DB
 func GetSessions() {
 	rows, _ := Database.Query("SELECT * FROM Session")
-	defer rows.Close()
+
 	for rows.Next() {
 		var session Session
 		rows.Scan(&session.SessionUUID, &session.UserID)
 		Sessions = append(Sessions, session)
 	}
+	rows.Close()
 }
 
 // ---UPDATE---

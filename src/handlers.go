@@ -1,10 +1,13 @@
 package src
 
 import (
+	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 
 	_ "github.com/mattn/go-sqlite3"
+	uuid "github.com/satori/go.uuid"
 )
 
 func Home(w http.ResponseWriter, req *http.Request) {
@@ -13,7 +16,10 @@ func Home(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(400)
 	}
 
-	tHome.Execute(w, AllData)
+	errtemplate := tHome.Execute(w, AllData)
+	if errtemplate != nil {
+		log.Fatalln("In home :", errtemplate)
+	}
 }
 
 func HomeLogged(w http.ResponseWriter, req *http.Request) {
@@ -35,7 +41,10 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	tHomeLogged.Execute(w, AllData)
+	errtemplate := tHomeLogged.Execute(w, AllData)
+	if errtemplate != nil {
+		log.Fatalln("In home :", errtemplate)
+	}
 }
 
 func Dashboard(w http.ResponseWriter, req *http.Request) {
@@ -48,12 +57,64 @@ func Dashboard(w http.ResponseWriter, req *http.Request) {
 }
 
 func Login(w http.ResponseWriter, req *http.Request) {
+	cookie, errCookie := req.Cookie("isLogged")
+
+	if errCookie != http.ErrNoCookie {
+		cookie = &http.Cookie{
+			Name:  "isLogged",
+			Value: "0",
+		}
+	}
+
 	tLogin, err := template.ParseFiles("templates/login.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
 
-	tLogin.Execute(w, nil)
+	if req.Method == "POST" {
+		isConnected := false
+		userID := ""
+		for _, account := range Accounts {
+			if (req.FormValue("usernameOrEmail") == account.Name || req.FormValue("usernameOrEmail") == account.Email) &&
+				CheckPassword(req.FormValue("pwd"), account.HashPwd) == nil {
+				isConnected = true
+				userID = account.Email
+				break
+			}
+		}
+
+		if isConnected {
+			fmt.Println("Connected !")
+			UpdateSessionsBDD(req, userID)
+
+			fmt.Println(HasActiveSession(userID))
+			if !(HasActiveSession(userID)) {
+				u := uuid.Must(uuid.NewV4()).String()
+				var session Session
+				session.SessionUUID = u
+				session.UserID = userID
+				AddSession(session)
+
+				cookie = &http.Cookie{
+					Name:     "isLogged",
+					Value:    u,
+					HttpOnly: true,
+					Path:     "/",
+					MaxAge:   AGE_SESSION,
+				}
+				http.SetCookie(w, cookie)
+			}
+
+			http.Redirect(w, req, "http://localhost:2030/home", http.StatusSeeOther)
+
+		} else {
+			fmt.Println("Not connected")
+			tLogin.Execute(w, nil)
+		}
+	} else {
+		http.SetCookie(w, cookie)
+		tLogin.Execute(w, nil)
+	}
 }
 
 func Register(w http.ResponseWriter, req *http.Request) {
@@ -64,9 +125,9 @@ func Register(w http.ResponseWriter, req *http.Request) {
 
 	if req.Method == "POST" {
 		if CreateAccount(req) {
-			tRegister.Execute(w, nil)
-		} else {
 			http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
+		} else {
+			tRegister.Execute(w, nil)
 		}
 	} else {
 		tRegister.Execute(w, nil)

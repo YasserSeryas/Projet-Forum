@@ -21,8 +21,8 @@ func CreateAccount(req *http.Request) bool {
 	isGoodEmail := EmailRegex.MatchString(req.FormValue("email")) && len(req.FormValue("email")) > 3 && len(req.FormValue("email")) < 200
 	// Test if email's mx exists
 	mx, errMX := net.LookupMX(strings.Split(req.FormValue("email"), "@")[1])
-	isGoodMX := errMX != nil || len(mx) == 0
-	// Test if email doesn't exist in db
+	isGoodMX := errMX == nil || len(mx) > 0
+	// Test if email doesn't exist in DB
 	emailDoesntExist := true
 	for _, account := range Accounts {
 		if account.Email == req.FormValue("email") {
@@ -61,8 +61,9 @@ func CheckPassword(password string, hashedPwd string) error {
 
 // Active session test function
 func HasActiveSession(user string) bool {
-	for _, account := range Accounts {
-		if account.Email == user {
+	for _, session := range Sessions {
+		fmt.Println(session.UserID)
+		if session.UserID == user {
 			return true
 		}
 	}

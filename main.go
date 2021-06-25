@@ -10,11 +10,13 @@ import (
 )
 
 func main() {
+	// Load the DB
 	src.GetPosts()
 	src.GetComments()
+	src.GetAccounts()
+	src.GetSessions()
 
-	//db, err := sql.Open("sqlite3", "./")
-	//Load the pages
+	// Dispatch handles
 	http.Handle("/", http.NotFoundHandler())
 	http.HandleFunc("/home", src.Home)
 	http.Handle("/home/", http.NotFoundHandler())
@@ -31,15 +33,14 @@ func main() {
 	http.HandleFunc("/posted", src.Posted)
 	http.Handle("/posted/", http.NotFoundHandler())
 
-	//Load static folder # Front end
+	// Load static folder # Front end
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	//Run and listen to the server
+	// Run and listen to the server
 	fmt.Println("listening on: http://localhost:2030/home")
 	errServe := http.ListenAndServe(":2030", nil)
 
 	if errServe != nil {
 		log.Fatalln("In main :", errServe)
 	}
-
 }
