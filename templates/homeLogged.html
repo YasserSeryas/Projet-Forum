@@ -17,17 +17,22 @@
                     <h2><a class="titleSidenav" href="../dashboard">Dashboard</a></h2>
                     <h2><a class="titleSidenav" href="../liked">Liked</a></h2>
                     <h2><a class="titleSidenav" href="../posted">Posted</a></h2>
-                    <img class="LogoDash" src="../static/img/dashboard-layout.png"/>
-                    <img class="LogoLike" src="../static/img/filled-like.png"/>
-                    <img class="LogoPost" src="../static/img/comments--v1.png"/>
+                    <img class="LogoDash" src="../static/img/icoDashboardFFF.png"/>
+                    <img class="LogoLike" src="../static/img/icoLikeFFF.png"/>
+                    <img class="LogoPost" src="../static/img/icoCommentFFF.png"/>
                 </div>
 
                 <div class="col-sm-8 text-left">
                     <div class="scroller">
                         <div class="container">
-                            <h1 class="">Welcome, Type Your Post</h1>
+                            <h1 class="police2">Welcome, Type Your Post</h1>
                         
                             <form action="" method="POST">
+                                <div class="bandeau">
+                                    <textarea id="Usertxt" name="Usertxt" 
+                                    rows="3" cols="25" wrap="hard" placeholder="Title" required 
+                                    pattern="\S+.*" class="custom-title"></textarea>
+                                </div>
                                 <input type="hidden" name="formName" value="addPost">
                                 
                                 <div id="test">
@@ -55,8 +60,8 @@
                             </form>
                         </div>
                         
-                        <div class="Post">
-                            {{range .}}
+                        {{range .}}
+                            <div class="Post">
                                 <h2>User: @{{.PostData.User}}</h2>
 
                                 <p>Content: {{.PostData.Content}}</p>
@@ -66,7 +71,9 @@
                                 <p>Creation Date :{{.PostData.CreationDate}}</p>
         
                                 {{range $Comment := .Comments}}
-                                    <p>Comment: {{$Comment.UserName}} : {{$Comment.CommentContent}}</p>
+                                    <div class="comment">
+                                        <p>Comment: {{$Comment.UserName}} : {{$Comment.CommentContent}}</p>
+                                    </div>
                                 {{end}}
 
                                 <form action="" method="POST">
@@ -77,8 +84,8 @@
                                     </textarea>
                                     <input type="submit" Value="Valider">
                                 </form>
-                            {{end}}
-                        </div>
+                            </div>
+                        {{end}}
                     </div>
                 </div>
                 

@@ -132,6 +132,7 @@ func CheckSession(w http.ResponseWriter, req *http.Request) bool {
 	cookie, errCookie := req.Cookie("isLogged")
 	if errCookie == http.ErrNoCookie {
 		http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
+		return false
 	} else if errCookie != nil {
 		log.Fatalln("In CheckSession : errCookie :", errCookie)
 	}
