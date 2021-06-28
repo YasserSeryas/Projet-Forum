@@ -100,3 +100,23 @@ func AddComment(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/homeLogged", http.StatusMovedPermanently)
 
 }
+
+func GetPost(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	stmt, err := Database.Prepare("SELECT  User, Content, Like, Dislike, Creationdate, Category FROM Post WHERE Category = ?;")
+	Select := r.PostForm.Get("Category")
+	rows, _ := stmt.Query(Select)
+	var data Post
+	if err != nil {
+		fmt.Println("error Query")
+	}
+	fmt.Println(Select)
+	for rows.Next() {
+		rows.Scan(&data.User, &data.Content, &data.Like, &data.Dislike, &data.CreationDate, &data.Category)
+
+	}
+	rows.Close()
+	fmt.Println(data)
+
+	http.Redirect(w, r, "/dashboard", http.StatusMovedPermanently)
+}

@@ -30,12 +30,13 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(er)
 }
 func Dashboard(w http.ResponseWriter, req *http.Request) {
-	tDashboard, err := template.ParseFiles("templates/dashboard.html")
+	tDashboard, err := template.ParseFiles("templates/dashboard.html", "templates/navbarLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
 
-	tDashboard.Execute(w, nil)
+	er := tDashboard.Execute(w, nil)
+	fmt.Println(er)
 
 }
 
