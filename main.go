@@ -24,7 +24,7 @@ const (
 		os.Exit(6)    //ErrorOpenFile
 	}
 	defer logFile.Close()
-	h.Logger = log.New(logFile, "TEST - ", log.LstdFlags)
+	h.Logger = log.New(logFile, "ERROR - ", log.LstdFlags)
 
 	//db, err := sql.Open("sqlite3", "./")
 	//Load the pages
