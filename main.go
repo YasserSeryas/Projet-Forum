@@ -34,6 +34,7 @@ func main() {
 	http.Handle("/insert/", http.NotFoundHandler())
 	http.HandleFunc("/AddComment", h.AddComment)
 	http.Handle("/AddComment/", http.NotFoundHandler())
+	http.HandleFunc("/GetPost", h.GetPost)
 	http.Handle("/GetPost/", http.NotFoundHandler())
 
 	//Load static folder # Front end
