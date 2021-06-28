@@ -47,6 +47,8 @@ func CreateAccount(req *http.Request) bool {
 func CreatePost(req *http.Request) {
 	var newPost Post
 	newPost.User = GetUserFromCookie(req)
+	newPost.Category = req.FormValue("category")
+	newPost.Content = req.FormValue("usertxt")
 	AddPost(newPost)
 }
 

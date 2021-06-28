@@ -15,7 +15,6 @@ var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 // Add a post to DB
 func AddPost(newPost Post) {
 	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, NbrLike, NbrDislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
-
 	stmt.Exec(newPost.User, newPost.Content, 0, 0, time.Now(), newPost.Category)
 	stmt.Close()
 	GetPosts() // Update struct go variable
@@ -26,12 +25,12 @@ func AddComment(r *http.Request) {
 	r.ParseForm()
 	var UserName string
 	stmtSelect, _ := Database.Prepare("SELECT Name FROM Account WHERE Email = ?  ")
-	defer stmtSelect.Close()
 	row := stmtSelect.QueryRow("ValeurBrute")
 	err := row.Scan(&UserName)
 	if err != nil {
 		log.Fatalln("In AddComment :", err)
 	}
+	stmtSelect.Close()
 
 	stmt, _ := Database.Prepare("INSERT INTO Comment( [Id-Post], [Id-User], [Comment-Content], UserName) VALUES ( ?, ?, ?, ? );")
 
@@ -82,6 +81,7 @@ func GetComments() {
 		Id := val.PostData.IdPost
 		stmt, _ := Database.Prepare("SELECT [Id-Comment], [Id-Post], [Id-User], [Comment-Content], UserName FROM Comment WHERE [Id-Post] = ?  ")
 		rows, _ := stmt.Query(Id)
+		stmt.Close()
 
 		var data []Comment
 
@@ -93,6 +93,7 @@ func GetComments() {
 
 			// fmt.Println(data)
 		}
+		rows.Close()
 		AllData[i].Comments = data
 	}
 }
