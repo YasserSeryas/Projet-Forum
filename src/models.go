@@ -17,6 +17,7 @@ type (
 	Post struct {
 		IdPost       int
 		User         string
+		Title        string
 		Content      string
 		Like         int
 		Dislike      int

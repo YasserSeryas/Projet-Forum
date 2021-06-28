@@ -9,32 +9,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
-                    </button>
-
-                    <a class="navbar-brand" href="#">
-                        <img class="LogoVertical" src="../static/img/Logo.png"/>
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <img class="LogoCenter"src="../static/img/Jaune.png"/>
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <img src="../static/img/profile.ico"/>
-                        <li><a class="titleSidenav" href="../profile">Name</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        {{template "navbarLogged"}}
     
         <div class="container-fluid text-center">    
             <div class="row content">
@@ -72,6 +47,7 @@
                                 </div>
                             
                                 <div id="bandeau">
+                                    <input type="text" name="titlePost" id="titlePost">
                                     <textarea id="Usertxt" name="usertxt"
                                     rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*" style="font-size: 25px ; background-color: #FAEBD7;font-family:OCR A Std, monospace; font-weight: bold; border: solid white 3px;"></textarea>
                                     <input type="submit" Value="Valider" style="width:110px;height: 30px;font-size: 19px;font-family:Arial; font-style: oblique ; font-weight: 51; background-color: #FAEBD7">
@@ -97,7 +73,7 @@
                                     <input type="hidden" name="formName" value="addComment">
                                     <input type="hidden" id="Idpost" name="Idpost" value="{{.PostData.IdPost}}">
 
-                                    <textarea id="Usertxt" name="Usertxt" rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*">
+                                    <textarea id="Usertxt" name="usertxt" rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*">
                                     </textarea>
                                     <input type="submit" Value="Valider">
                                 </form>

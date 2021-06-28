@@ -11,7 +11,7 @@ import (
 )
 
 func Home(w http.ResponseWriter, req *http.Request) {
-	tHome, err := template.ParseFiles("templates/index.html")
+	tHome, err := template.ParseFiles("templates/index.html", "templates/navbar.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
@@ -23,7 +23,7 @@ func Home(w http.ResponseWriter, req *http.Request) {
 }
 
 func HomeLogged(w http.ResponseWriter, req *http.Request) {
-	tHomeLogged, err := template.ParseFiles("templates/homeLogged.html")
+	tHomeLogged, err := template.ParseFiles("templates/homeLogged.html", "templates/navbarLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
@@ -34,9 +34,11 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 	if req.Method == "POST" {
 		switch req.FormValue("formName") {
 		case "addPost":
-			CreatePost(req)
+			if CreatePost(req) != nil {
+				http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
+			}
 		case "addComment":
-			AddComment(req) // A FINIR <--------------------------
+			CreateComment(req) // A FINIR <--------------------------
 		}
 	}
 
@@ -47,7 +49,7 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 }
 
 func Dashboard(w http.ResponseWriter, req *http.Request) {
-	tDashboard, err := template.ParseFiles("templates/dashboard.html")
+	tDashboard, err := template.ParseFiles("templates/dashboard.html", "templates/navbarLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
@@ -103,7 +105,7 @@ func Login(w http.ResponseWriter, req *http.Request) {
 				http.SetCookie(w, cookie)
 			}
 
-			http.Redirect(w, req, "http://localhost:2030/home", http.StatusSeeOther)
+			http.Redirect(w, req, "http://localhost:2030/homeLogged", http.StatusSeeOther)
 
 		} else {
 			fmt.Println("Not connected")
@@ -133,7 +135,7 @@ func Register(w http.ResponseWriter, req *http.Request) {
 }
 
 func Liked(w http.ResponseWriter, req *http.Request) {
-	tLiked, err := template.ParseFiles("templates/liked.html")
+	tLiked, err := template.ParseFiles("templates/liked.html", "templates/navbarLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
@@ -146,7 +148,7 @@ func Liked(w http.ResponseWriter, req *http.Request) {
 }
 
 func Posted(w http.ResponseWriter, req *http.Request) {
-	tPosted, err := template.ParseFiles("templates/posted.html")
+	tPosted, err := template.ParseFiles("templates/posted.html", "templates/navbarLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}

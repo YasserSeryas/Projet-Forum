@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"net/http"
 	"time"
 )
 
@@ -14,29 +13,16 @@ var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 
 // Add a post to DB
 func AddPost(newPost Post) {
-	stmt, _ := Database.Prepare("INSERT INTO Post( User, Content, NbrLike, NbrDislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ? );")
-	stmt.Exec(newPost.User, newPost.Content, 0, 0, time.Now(), newPost.Category)
+	stmt, _ := Database.Prepare("INSERT INTO Post( User, Title, Content, NbrLike, NbrDislike, Creationdate, Category) VALUES ( ?, ?, ?, ?, ?, ?, ? );")
+	stmt.Exec(newPost.User, newPost.Title, newPost.Content, 0, 0, time.Now(), newPost.Category)
 	stmt.Close()
 	GetPosts() // Update struct go variable
 }
 
 // Add a comment to DB | A FINIR | <-----
-func AddComment(r *http.Request) {
-	r.ParseForm()
-	var UserName string
-	stmtSelect, _ := Database.Prepare("SELECT Name FROM Account WHERE Email = ?  ")
-	row := stmtSelect.QueryRow("ValeurBrute")
-	err := row.Scan(&UserName)
-	if err != nil {
-		log.Fatalln("In AddComment :", err)
-	}
-	stmtSelect.Close()
-
+func AddComment(newComment Comment) {
 	stmt, _ := Database.Prepare("INSERT INTO Comment( [Id-Post], [Id-User], [Comment-Content], UserName) VALUES ( ?, ?, ?, ? );")
-
-	formText := r.PostForm.Get("Usertxt")
-	GetId := r.PostForm.Get("Idpost")
-	stmt.Exec(GetId, "ValeurBrute", formText, UserName)
+	stmt.Exec(newComment.IdPost, newComment.IdUser, newComment.CommentContent, newComment.UserName)
 	stmt.Close()
 	GetComments() // Update struct go variable
 }
@@ -121,6 +107,17 @@ func GetSessions() {
 	}
 	Sessions = sessions
 	rows.Close()
+}
+
+func GetUsername(IdUser string) string {
+	var username string
+
+	stmt, _ := Database.Prepare("SELECT Name FROM Account WHERE Email = ?")
+	row := stmt.QueryRow(IdUser)
+	row.Scan(&username)
+	stmt.Close()
+
+	return username
 }
 
 // ---UPDATE---

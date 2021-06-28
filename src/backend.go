@@ -1,9 +1,11 @@
 package src
 
 import (
+	"errors"
 	"log"
 	"net"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"golang.org/x/crypto/bcrypt"
@@ -43,13 +45,47 @@ func CreateAccount(req *http.Request) bool {
 	return isGoodSecondPwd && isGoodEmail && isGoodPwd && isGoodMX && emailDoesntExist
 }
 
-// A FINIR <--------------------------------------
-func CreatePost(req *http.Request) {
+// Function of post creation in database
+func CreatePost(req *http.Request) error {
 	var newPost Post
-	newPost.User = GetUserFromCookie(req)
+	var err error
+	if GetUserFromCookie(req) == "" {
+		err = errors.New("in /src/backend.go/CreatePost : no user find")
+	} else {
+		newPost.User = GetUserFromCookie(req)
+	}
+
 	newPost.Category = req.FormValue("category")
 	newPost.Content = req.FormValue("usertxt")
+	newPost.Title = req.FormValue("titlePost")
 	AddPost(newPost)
+	return err
+}
+
+// Function of comment creation in database
+func CreateComment(req *http.Request) error {
+	var newComment Comment
+	var err error
+
+	IdPost, errAtoi := strconv.Atoi(req.FormValue("Idpost"))
+	if errAtoi != nil {
+		log.Fatalln("In backend.go/CreateComment :", errAtoi)
+	} else {
+		newComment.IdPost = IdPost
+	}
+
+	if GetUserFromCookie(req) == "" {
+		err = errors.New("in /src/backend.go/CreatePost : no user find")
+		return err
+	} else {
+		newComment.IdUser = GetUserFromCookie(req)
+	}
+
+	newComment.UserName = GetUsername(newComment.IdUser)
+	newComment.CommentContent = req.FormValue("usertxt")
+
+	AddComment(newComment)
+	return err
 }
 
 // Password hashing function
