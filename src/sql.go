@@ -9,7 +9,7 @@ import (
 )
 
 var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
-
+var Likes = []Like{}
 var Result1 = []Comment{}
 var Result2 = []TemplateData{}
 
@@ -119,4 +119,87 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(data)
 
 	http.Redirect(w, r, "/dashboard", http.StatusMovedPermanently)
+}
+
+// func AddLike(w http.ResponseWriter, r *http.Request) {
+// 	r.ParseForm()
+// 	// Add like
+// 	likeRows, err := Database.Prepare("UPDATE Post SET Like = Like + 1 Where [Id-Post] = ? ;")
+// 	GetId := r.PostForm.Get("IdPostLike")
+// 	likeRows.Exec(GetId)
+// 	if err != nil {
+// 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+// 	}
+// 	fmt.Println(GetId)
+// 	likeRows.Close()
+
+// 	http.Redirect(w, r, "/homeLogged", http.StatusMovedPermanently)
+
+// count := 0
+// for likeRows.Next() {
+// 	count++
+// }
+// if count >= 1 {
+// 	// Remove like if exists
+// 	_, err = Database.Exec(`
+// 		DELETE from likes WHERE User=? AND IdPost=?
+// 	`, User, IdPost)
+// 	if err != nil {
+// 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+// 	}
+// 	//
+// } else {
+// 	// Ad like if not exists
+// 	_, err = Database.Exec(`
+// 		INSERT OR IGNORE INTO likes (User, IdPost) VALUES (?, ?)
+// 	`, User, IdPost)
+// 	if err != nil {
+// 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+// 	}
+// }
+
+// // Remove dislike
+// _, err = Database.Exec(`
+// 	DELETE from dislikes WHERE User=? AND IdPost=?
+// `, User, IdPost)
+// if err != nil {
+// 	http.Error(w, http.StatusText(500), http.StatusInternalServerError)
+// }
+// }// func AddDislike(newDislike Like) {
+// 	stmt, _ := Database.Prepare("INSERT INTO Like ( IdUser, IsLike, IdPost) VALUES ( ?, ?, ?); ")
+// 	stmt.Exec(newDislike.IdUser, newDislike.IsLike, newDislike.IdPost)
+// 	stmt.Close()
+// 	GetDislike()
+
+// }
+func AddLike(newLike Like) {
+	stmt, _ := Database.Prepare("INSERT INTO Like ( IdUser, IsLike, IdPost) VALUES ( ?, ?, ?); ")
+	stmt.Exec(newLike.IdUser, newLike.IsLike, newLike.IdPost)
+	stmt.Close()
+	GetLike()
+}
+
+func DeleteLike(IdLike int) {
+	stmt, _ := Database.Prepare("DELETE FROM Like WHERE IdLike = ?;")
+	stmt.Exec(IdLike)
+	stmt.Close()
+	GetLike()
+}
+func UpdateLike(IsLike bool) {
+	stmt, _ := Database.Prepare("UPDATE Like SET IsLike =?;")
+	stmt.Exec(IsLike)
+	stmt.Close()
+	GetLike()
+}
+func GetLike() {
+	var likes []Like
+	rows, _ := Database.Query("SELECT IdLike, IdUser, IsLike, IdPost FROM Like ;")
+	for rows.Next() {
+		var like Like
+		rows.Scan(&like.IdLike, &like.IdUser, &like.IsLike, &like.IdPost)
+		likes = append(likes, like)
+	}
+	Likes = likes
+	rows.Close()
+
 }

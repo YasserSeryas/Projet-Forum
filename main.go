@@ -36,7 +36,7 @@ func main() {
 	http.Handle("/AddComment/", http.NotFoundHandler())
 	http.HandleFunc("/GetPost", h.GetPost)
 	http.Handle("/GetPost/", http.NotFoundHandler())
-
+	http.HandleFunc("/like", h.AddLike)
 	//Load static folder # Front end
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	// http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))

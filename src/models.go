@@ -31,11 +31,10 @@ type Comment struct {
 	UserName       string
 }
 type Like struct {
-	IdPost    int
-	User      string
-	IsLike    bool
-	IsDislike bool
-	Date      time.Time
+	IdPost int
+	IdUser string
+	IsLike bool
+	IdLike int
 }
 type TemplateData struct {
 	PostData Post
