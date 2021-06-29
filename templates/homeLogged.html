@@ -1,158 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link href="../static/css/homeLogged.css" rel="stylesheet">
-  <script src="../static/js/include.js"></script>
-  <script src="../static/js/.js"></script>
-</head>
-<body>
+    <head>
+        <title>Home</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link href="../static/css/homeLogged.css" rel="stylesheet">
+    </head>
 
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>                        
-        </button>
-        <a class="navbar-brand" href="#">
-          <img class="LogoVertical" src="../static/img/Logo.png"/>
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <img class="LogoCenter"src="../static/img/Jaune.png"/>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <img src="../static/img/profile.ico"/>
-          <li><a class="titleSidenav" href="../profile">Name</a></li>
-          
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-2 sidenav2">
-      <h2><a class="titleSidenav" href="../dashboard">Dashboard</a></h2>
-      <h2><a class="titleSidenav" href="../liked">Liked</a></h2>
-      <h2><a class="titleSidenav" href="../posted">Posted</a></h2>
-      <img class="LogoDash" src="../static/img/dashboard-layout.png"/>
-      <img class="LogoLike" src="../static/img/filled-like.png"/>
-      <img class="LogoPost" src="../static/img/comments--v1.png"/>
-    </div>
-    <div class="col-sm-8 text-left"> 
-    <div class="scroller">
-
-      <div class="container">
-        <h1 class="police2">Welcome, Type Your Post</h1>
-        
-      <div id="bandeau">
-        <textarea id="Usertxt" name="Usertxt"
-            rows="3" cols="25" wrap="hard" placeholder="Title" required pattern="\S+.*" class="custom-title"></textarea>
-
-      </form>
-      </div>
-
-      <div id="bandeau">
-        <textarea id="Usertxt" name="Usertxt"
-            rows="3" cols="25" wrap="hard" placeholder="Write here" required pattern="\S+.*" class="custom-post"></textarea>
-            <div id="test">
-              <form action="/insert" method="post">
-              <label  class="police1" id="font1" for="choice">Category Choice:</label>
-              <select class="custom-select" name="choice" id="choice" required>
-              <option class="custom-select">--Please choose a Category--</option>
-              <option class="custom-Gaming" value="Gaming">Gaming</option>
-              <option class="custom-Politics" value="Politics">Politics</option>
-              <option class="custom-History" value="History">History</option>
-              <option class="custom-LifeStory" value="LifeStory">LifeStory</option>
-              <option class="custom-Sport" value="Sport">Sport</option>
-              <option class="custom-Memes" value="Memes">Memes</option>
-              <option class="custom-Environnement" value="Environnement">Environnement</option>
-              <option class="custom-Art" value="Art">Art</option>
-              <option class="custom-Geography" value="Geography">Geography</option>
-                
-              </select>
-          </div>
-        <input type="submit" Value="Send" class="custom-valider">
-      </form>
-      </div>
-
-     
-        
-      </div>
-
-      <div class="under-text"></div>  
-
-      <div class="container">
-      <h1 class="police2">Pseudo</h1>
-      <h1 class="custom-rdmTitle">Title</h1>
-      <h1 class="custom-rdmPost">Text</h1>
-
-      <option class="like">L</option>
-      <option class="dislike">D</option>
-      <option class="comm">C</option>
-      <img class="Like" src="../static/img/dashboard-layout.png"/>
-      <img class="Dislike" src="../static/img/broken-heart.png"/>
-      <img class="Post" src="../static/img/comments--v1.png"/>
-    </div>
-
-        {{range .}}
-    <div class="Post">
-  
-      
-        <h2>User: @{{.User}}</h2>
-        
+    <body>
+        {{template "navbarLogged"}}
     
-      <p>Content: {{.Content}}</p>
-      <p>Like :{{.Like}}</p>
-      <p>Dislike: {{.Dislike}}</p>
-      <p>Category: #{{.Category}}</p>
-      <p>Comment:<br> {{.Comment}}<br> </p>
-      <form action="/AddComment" method="post">
-        <input type="hidden" id="Idpost" name="Idpost" value="{{.IdPost}}">
-        <textarea id="Usertxt" name="Usertxt"
-        rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*"></textarea>
-    <input type="submit" Value="Valider">
-</form>
-      <p>Creation Date :{{.CreationDate}}</p>
-    </div>
-      {{end}}
-    </div>
-    </div>
-    <div class="col-sm-2 sidenav">
-        <h2>Articles Populaires</h2>
-      <div class="well">
-        <h1 class="custom-rdmTitle2">Title</h1>
-      </div>
-      <img class="Like2" src="../static/img/icons8-aimer-48.png"/>
-      <img class="Dislike2" src="../static/img/broken-heart.png"/>
-      <img class="Post2" src="../static/img/comments--v1.png"/>
+        <div class="container-fluid text-center">    
+            <div class="row content">
+                <div class="col-sm-2 sidenavLeft">
+                    <div class="lineSidebar">
+                        <h2><a class="titleSidenav" href="../dashboard">Dashboard</a></h2>
+                        <img class="LogoDash" src="../static/img/icoDashboardFFF.png"/>
+                    </div>
 
-        <div class="well">
-          <h1 class="custom-rdmTitle2">Title</h1>
-      </div>
-      <img class="Like2" src="../static/img/icons8-aimer-48.png"/>
-      <img class="Dislike2" src="../static/img/broken-heart.png"/>
-      <img class="Post2" src="../static/img/comments--v1.png"/>
-  
-      <div class="well">
-        <h1 class="custom-rdmTitle2">Title</h1>
-      </div>
-      <img class="Like2" src="../static/img/icons8-aimer-48.png"/>
-      <img class="Dislike2" src="../static/img/broken-heart.png"/>
-      <img class="Post2" src="../static/img/comments--v1.png"/>
-      
-    </div>
-  </div>
-</div>
-<script>
-    includeHTML();
-    </script>
-</body>
+                    <div class="lineSidebar">
+                        <h2><a class="titleSidenav" href="../liked">Liked</a></h2>
+                        <img class="LogoLike" src="../static/img/icoLikeFFF.png"/>
+                    </div>
+
+                    <div class="lineSidebar" style="margin-bottom: 25%;">
+                        <h2><a class="titleSidenav" href="../posted">Posted</a></h2>
+                        <img class="LogoPost" src="../static/img/icoCommentFFF.png"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 text-left">
+                    <div class="scroller">
+                        <div class="container">
+                            <h1 class="police2">Welcome, Type Your Post</h1>
+                        
+                            <form action="" method="POST">
+                                <input type="hidden" name="formName" value="addPost">
+
+                                <div class="bandeau">
+                                    <input type="text" name="postTitle" class="postTitle" placeholder="Title">
+                                </div>
+
+                                <textarea id="Usertxt" name="usertxt"
+                                rows="3" cols="25" wrap="hard" placeholder="Write here" required
+                                 pattern="\S+.*" class="postContentInput"></textarea>
+                                
+                                <div id="select">
+                                    <label class="police1" id="font1" for="choice">Choose a category :</label>
+                                    <select class="categorySelect" name="category" id="choice" required>
+                                        <option class="categorySelect" value="">--Please choose a Category--</option>
+                                        <option class="categoryGaming" value="Gaming">Gaming</option>
+                                        <option class="categoryPolitics" value="Politics">Politics</option>
+                                        <option class="categoryHistory" value="History">History</option>
+                                        <option class="categoryLifeStory" value="LifeStory">LifeStory</option>
+                                        <option class="categorySport" value="Sport">Sport</option>
+                                        <option class="categoryMemes" value="Memes">Memes</option>
+                                        <option class="categoryEnvironment" value="Environnement">Environment</option>
+                                        <option class="categoryArt" value="Art">Art</option>
+                                        <option class="categoryGeography" value="Geography">Geography</option>
+                                    </select>
+                                </div>
+                                
+                                <input type="submit" Value="Send" class="submitPost">
+                            </form>
+                        </div>
+
+                        <div class="flexLine">
+                            <div class="underPostForm"></div>
+                        </div>
+                        
+                        
+                        {{range .}}
+                            <div class="Post">
+                                <h1 class="police2">
+                                    {{.PostData.User}}
+                                </h1>
+                                <h1 class="postDisplayedTitle">
+                                    {{.PostData.Title}}
+                                </h1>
+
+                                <p class="postContent">
+                                    {{.PostData.Content}}
+                                </p>
+
+                                <div class="actions">
+                                    <form action="" method="post">
+                                        <input type="hidden" name="formName" value="actions">
+                                        <input type="hidden" name="idPost" value="{{.PostData.IdPost}}">
+                                        <div class="like">
+                                            <button type="submit" name="isLike" value="like">
+                                                <img class="Like" src="../static/img/icoDashboardFFF.png"/>
+                                            </button>
+                                        </div>
+                                        <div class="dislike">
+                                            <button type="submit" name="isLike" value="dislike">
+                                                <img class="Dislike" src="../static/img/icoLikeFFF.png"/>
+                                            </button>
+                                        </div>
+                                        <div class="comm">
+                                            <button>
+                                                <img class="Comm" src="../static/img/icoCommentFFF.png"/>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- <p>Like :{{.PostData.Like}}</p>
+                                <p>Dislike: {{.PostData.Dislike}}</p>
+                                <p>Category: #{{.PostData.Category}}</p>
+                                <p>Creation Date :{{.PostData.CreationDate}}</p> -->
+        
+                                {{range $Comment := .Comments}}
+                                    <div class="comment">
+                                        <p>Comment: {{$Comment.UserName}} : {{$Comment.CommentContent}}</p>
+                                    </div>
+                                {{end}}
+
+                                <form action="" method="POST">
+                                    <input type="hidden" name="formName" value="addComment">
+                                    <input type="hidden" id="Idpost" name="Idpost" value="{{.PostData.IdPost}}">
+
+                                    <input type="text" name="usertxt" id="Usertext">
+                                    <input type="submit" Value="Valider">
+                                </form>
+                            </div>
+
+                            <hr>
+                        {{end}}
+                    </div>
+                </div>
+                
+                <div class="col-sm-2 sidenav">
+                    <h2>Articles Populaires</h2>
+                    
+                    <div class="well">
+                        <h1>ADS</h1>
+                    </div>
+                    
+                    <div class="well">
+                        <h1>ADS</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
