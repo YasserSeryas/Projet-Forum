@@ -33,7 +33,7 @@ border-bottom: 0px;
 border-right: 0px;
 border-left: 0px;
 height: 100%;
-top: -100.7%; left: 102%;
+
 }
 
 .sidenav2 {
@@ -98,9 +98,7 @@ h2{
 }
 
 
-h1{ 
-  color: white;
-}
+
 
 label{ 
   color: white;
@@ -266,6 +264,7 @@ h1 {
 
 .police2 {
   font-size: 34px;
+  color: white;
 }
 
 .under-text {
@@ -317,7 +316,7 @@ h1 {
 
 .custom-Art {
   background-color: #BCB88A; 
-  color: #EAC117;
+  color: #4e3535;
 }
 
 
@@ -340,8 +339,8 @@ h1 {
   font-weight: bold; 
   width: 750px;
   height : 100px;
-  position: absolute;
-  top: 71.6%; left: 11.2%;
+  position: relative;
+  margin-top: -40%; right: 55%;
   
 }
 
@@ -359,13 +358,76 @@ h1 {
   font-weight: bold; 
   width: 350px;
   height : 40px;
+  position: relative;
+  top: -100%; left: 0%;
+}
+
+.custom-rdmTitle2 {
+  border-radius: 8px;
+  color: black;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
+  transition-duration: 0.2s;
+  font-family:OCR A Std, monospace; 
+  font-weight: bold; 
+  width: 150px;
+  height : 35px;
+}
+
+
+.custom-rdmTitle-likes {
+  border-radius: 8px;
+  color: black;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 11px;
+  transition-duration: 0.2s;
+  font-family:OCR A Std, monospace; 
+  font-weight: bold; 
+  width: 150px;
+  position: relative;
+  top: -10%; left: -40%;
+}
+
+.custom-rdmTitle-dislikes {
+  border-radius: 8px;
+  color: black;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 11px;
+  transition-duration: 0.2s;
+  font-family:OCR A Std, monospace; 
+  font-weight: bold; 
+  width: 150px;
+  position: relative;
+  top: -14.6%; left: -5%;
+}
+
+.custom-rdmTitle-comments {
+  border-radius: 8px;
+  color: black;
+
+  text-decoration: none;
+  display: inline-block;
+  font-size: 11px;
+  transition-duration: 0.2s;
+  font-family:OCR A Std, monospace; 
+  font-weight: bold; 
+  width: 150px;
+
+  position: relative;
+  top: -19.2%; left: 30%;
 }
 
 .like {
-    background-color: #4CAF50;
+    background-color: white;
     border: none;
     border-radius: 8px;
-    color: white;
+    color: black;
     padding: 15px 0px;
     text-align: center;
     text-decoration: none;
@@ -373,20 +435,21 @@ h1 {
     font-size: 16px;
     width: 58px;
     height: 50px;
-    position: absolute;
-    top: 90%; left: 34.53%;
+    transition-duration: 0.2s;
+    position: relative;
+    margin-top: -2.5%; left: 8%;
 }
 
 .like:hover {
-  background-color: #F660AB;
+  background-color: #d1ce12;
   color: white;
 }
 
 .dislike {
-  background-color: #4CAF50;
+  background-color: white;
   border: none;
   border-radius: 8px;
-  color: white;
+  color: black;
   padding: 15px 0px;
   text-align: center;
   text-decoration: none;
@@ -394,20 +457,21 @@ h1 {
   font-size: 16px;
   width: 58px;
   height: 50px;
-  position: absolute;
-  top: 90%; left: 45.98%;
+  transition-duration: 0.2s;
+  position: relative;
+  margin-top: -2.5%; left: 24%;
 }
 
 .dislike:hover {
-  background-color: #F660AB;
+  background-color: #d1ce12;
   color: white;
 }
 
 .comm {
-  background-color: #4CAF50;
+  background-color: white;
   border: none;
   border-radius: 8px;
-  color: white;
+  color: black;
   padding: 15px 0px;
   text-align: center;
   text-decoration: none;
@@ -415,36 +479,64 @@ h1 {
   font-size: 16px;
   width: 55px;
   height: 50px;
-  position: absolute;
-  top: 90%; left: 57.43%;
+  transition-duration: 0.2s;
+  position: relative;
+  margin-top: -2.5%; left: 39%;
 }
 
 .comm:hover {
-  background-color: #F660AB;
+  background-color: #d1ce12;
   color: white;
 }
 
 
-.Like {
-  position: absolute; /* postulat de départ */
-  top: 94%; left: 39%; /* à 50%/50% du parent référent */
-  transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+.Like { /*positionne l'icone "like" dans la case correspondante*/
+  position: relative;
+  margin-top: 5%; left: -30%;
+  transform: translate(-50%, -50%);
   width: 1.8em;
 
 }
 
- .Dislike {
-  position: absolute; /* postulat de départ */
-  top: 94%; left: 50.6%; /* à 50%/50% du parent référent */
-  transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-  width: 1.5em;
+.Like2 { /*positionne l'icone "like" dans la case correspondante*/
+  position: relative;
+  top: -8%; left: -16%;
+  transform: translate(-50%, -50%);
+  width: 2.5em;
 
 }
 
-.Post {
-  position: absolute; /* postulat de départ */
-  top: 94%; left: 61.8%; /* à 50%/50% du parent référent */
-  transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+ .Dislike { /*positionne l'icone "dislike" dans la case correspondante*/
+  position: relative;
+  margin-top: 5%; left: -5%;
+  transform: translate(-50%, -50%);
   width: 1.5em;
+}
 
+.Dislike2 { /*positionne l'icone "dislike" dans la case correspondante*/
+  position: relative;
+  top: -9.5%; left: 2.5%;
+  transform: translate(-50%, -50%);
+  width: 1.5em;
+}
+
+.Post { /*positionne l'icone "post" dans la case correspondante*/
+  position: relative;
+  margin-top: 5%; left: 20%;
+  transform: translate(-50%, -50%);
+  width: 1.5em;
+}
+
+.Post2 { /*positionne l'icone "post" dans la case correspondante*/
+  position: relative;
+  top: -9.5%; left: 25%;
+  transform: translate(-50%, -50%);
+  width: 1.5em;
+}
+
+.well {
+  background-color: white;
+  color: black;
+  position: relative;
+  margin-top: 5%;
 }
