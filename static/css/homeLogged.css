@@ -1,181 +1,436 @@
+html{overflow: hidden;}
+body{min-height:100%;height:100vh;}
+
 p { 
     color: white;
 }
-  body  { 
+
+body  { 
     background-color: #222831;
-  }
-  .LogoVertical{
-  
-  
-  float: left;
-   max-width: 100px;
-   height: auto;
-  }
-  /* Remove the navbar's default margin-bottom and rounded borders */ 
-  .navbar {
-   
+}
+
+.LogoVertical{
+    float: left;
+    max-width: 100px;
+    height: auto;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
     height:75px;
-  background-color: #222831;
-  margin-bottom: 0;
-  border-radius: 0;
+    background-color: #222831;
+    margin-bottom: 0;
+    border-radius: 0;
+}
   
-  }
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
   
-  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-  .row.content {height: 450px}
+/* Set gray background color and 100% height */
+
   
-  /* Set gray background color and 100% height */
-  .sidenav {
-  padding-top: 20px;
-  
-  border:5px solid #FFD369;
-  border-bottom: 0px;
-  border-right: 0px;
-  border-left: 0px;
-  height: 100%;
-  }
-  
-  .sidenav2 {
+.sidenav2 {
     padding-top: 150px;
-    
+
     border:5px solid #FFD369;
     border-bottom: 0px;
     border-right: 0px;
     border-left: 0px;
     height: 100%;
-    }
+}
 
-  .scroller {
-    
-  height: 673px;
-  overflow-y: scroll;
-  scrollbar-color: rebeccapurple green;
-  scrollbar-width: thin;
-  }
-  .text-left {
+.scroller {
+    height: 673px;
+    overflow-y: scroll;
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+}
+
+.text-left {
     height: 90vh;
     border:5px solid #FFD369;
     border-bottom: 0px;
-    
-    
+}
   
-  }
-  
-  /* Set black background color, white text and some padding */
-  footer {
-  background-color: #555;
-  color: white;
-  padding: 15px;
-  }
-  
-  /* On small screens, set height to 'auto' for sidenav and grid */
-  @media screen and (max-width: 767px) {
-  .sidenav {
-    height: auto;
+/* Set black background color, white text and some padding */
+footer {
+    background-color: #555;
+    color: white;
     padding: 15px;
-  }
+}
   
-  .row.content {height:auto;} 
-  }
-  .LogoCenter {
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+    }
+  
+    /* .row.content {height:auto;}  */
+}
+
+.LogoCenter {
     position: absolute; /* postulat de départ */
     top: 50%; left: 50%; /* à 50%/50% du parent référent */
     transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
     width: 6em;
-  
-  
-  }
-  h2{ 
-    color: white;
-  }
-  .img{
-    
+}
+
+h2 { 
+    color: #EEEEEE;
+}
+
+.img {
     width: 45px;
-      height: 45px;
-    
-    
-  }
-  
+    height: 45px;
+}
 
 
 
+h1{ 
+    color: #EEEEEE;
+}
 
-
-
-
-
-
-
-  h1{ 
-    color: black;
-  }
-
-  .titleSidenav{ 
-    color: white;
+.titleSidenav{ 
+    color: #EEEEEE;
     padding-left: 50px;
-  }
+}
 
-  .titleSidenav:hover, .titleSidenav:focus {
+.titleSidenav:hover, .titleSidenav:focus {
+    color: #EEEEEE;
+    text-decoration: none;
+}
+
+.LogoDash {
+    width: 3em;
+}
+.LogoLike {
+    width: 3em;
+}
+.LogoPost {
+    width: 3em;
+}
+
+.titleSidenav{
+    padding: 0;
+    color: white;
+}
+.titleSidenav:hover, .titleSidenav:focus {
     color: white;
     text-decoration: none;
-  }
+}
 
-  .LogoDash {
-    position: absolute; /* postulat de départ */
-    top: 42%; left: 13%;
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-    width: 3em;
-  
-  }
-
-   .LogoLike {
-    position: absolute; /* postulat de départ */
-    top: 54%; left: 13%;
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-    width: 3em;
-  
-  }
-
-  .LogoPost {
-    position: absolute; /* postulat de départ */
-    top: 66%; left: 13%; 
-    transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
-    width: 3em;
-  
-  }
-  .container{
+.container{
     width:40%;
-  }
-  #textar{
-      margin: 10px 0px 20px 45px;
-      width: 70%;
-      height: 150px;
-      padding: 12px 20px;
-      box-sizing: border-box;
-      border: 2px solid #ccc;
-      border-radius: 4px;
-      background-color: #f8f8f8;
-      font-size: 16px;
-  }
+}
+#textar{
+    margin: 10px 0px 20px 45px;
+    width: 70%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+}
   
-  #button{
+#button{
     width : 100px;
     height : 50px;
     font-family: 'Droid Serif', serif;
-    
-      background-color: white;
-      color: black;
-      border: 2px solid #4CAF50; /* Green */
-  }
-  
-  #button:hover {
-      background-color: #4CAF50; /* Green */
-      color: white;
-  }
 
-
-h1 {
-  font-family: 'Droid Serif', serif;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50; /* Green */
 }
   
+#button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
   
+.categorySelect {
+    background-color: #BCB88A; /* Green */
+    border: 2px solid black;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 55px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.2s;
+    width: 350px;
+}
+.categorySelect:hover {
+    background-color: #786D5F;
+    color: white;
+}
+
+.postTitle {
+    border: 3px solid black;
+    border-radius: 8px;
+    color: black;
+    padding: 8px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    transition-duration: 0.3s;
+    background-color: white;
+    font-family:OCR A Std, monospace; 
+    font-weight: bold; 
+    width: 350px;
+    height : 50px;
+}
+.postTitle:hover {
+    background-color: #FAEBD7;
+    color: black;
+}
+
+.postContentInput {
+    border: 3px solid black;
+    border-radius: 8px;
+    color: black;
+    padding: 8px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition-duration: 0.3s;
+    background-color: white;
+    font-family:OCR A Std, monospace; 
+    font-weight: bold; 
+    width: 350px;
+}
+.postContentInput:hover {
+    background-color: #FAEBD7;
+    color: black;
+}
+
+.submitPost {
+    border: 2px solid black;
+    border-radius: 8px;
+    color: black;
+    padding: 8px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition-duration: 0.2s;
+    background-color: white;
+    font-family:OCR A Std, monospace; 
+    font-weight: bold; 
+    width: 350px;
+}
+.submitPost:hover {
+    background-color: #FAEBD7;
+    color: black;
+}
+
+.police1 {
+    font-size: 17px;
+}
+.police2 {
+    font-size: 25px;
+}
+
+.flexLine {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.underPostForm {
+    margin-top: 15px;
+    height: 0vh;
+    border:4px solid #FFD369;
+    border-bottom: 0px;
+    width: 80%;
+}
+
+.categoryGaming, .categoryHistory, .categorySport, .categoryEnvironment, .categoryGeography {
+    background-color: #aca886;
+}
+.categoryPolitics, .categoryLifeStory, .categoryMemes, .categoryArt {
+    background-color: #BCB88A; 
+}
+.categoryGaming {color: #4169E1;}
+.categoryPolitics{color: purple;}
+.categoryHistory{color: #827839;}
+.categoryLifeStory{color: #FF4500;}
+.categorySport{color: #483C32;}
+.categoryMemes{color: #F70D1A;}
+.categoryEnvironment{color: #7D0552;}
+.categoryArt{color: #EAC117;}
+.categoryGeography{color: #F75D59;}
+
+.postDisplayedTitle {
+    border: 2px solid black;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    transition-duration: 0.2s;
+    font-family:OCR A Std, monospace; 
+    font-weight: bold;
+    width: 50%;
+}
+.postContent {
+    border: 2px solid black;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition-duration: 0.2s;
+    font-family:OCR A Std, monospace; 
+    font-weight: bold;
+    width: 70%;
+}
+
+.like {
+    border: none;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    top: 90%; left: 34.53%;
+    width: 35px; height: 35px;
+}
+.like:hover {
+    border: 1px solid #FFD369;
+    color: white;
+}
+
+.dislike {
+    border: none;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    top: 90%; left: 45.98%;
+    width: 35px; height: 35px;
+}
+.dislike:hover {
+    border: 1px solid #FFD369;
+    color: white;
+}
+
+.comm {
+    border: none;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    top: 90%; left: 57.43%;
+    width: 35px; height: 35px;
+}
+.comm:hover {
+    border: 1px solid #FFD369;
+    color: white;
+}
+
+.Like, .Dislike, .Comm {
+    width: 95%;
+}
+
+.like, .dislike, .comm {
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    padding-bottom: 50px;
+}
+
+#select label {
+    color: #EEEEEE;
+}
+
+.row.content {
+    height: 100%;
+}
+.row.content::before {
+    height: 100%;
+}
+
+.sidenavLeft {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    border-top:5px solid #FFD369;
+    height: 100% !important;
+    overflow: auto;
+}
+.lineSidebar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+.lineSidebar h2 {
+    margin: 0;
+    float: right;
+    margin-left: 4%;
+}
+.lineSidebar img {
+    float: left;
+}
+
+.container-fluid.text-center {
+    height: 100%;
+}
+
+.row.content:before {
+    display: contents;
+}
+
+.Post {
+    align-items: flex;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10%;
+}
+
+.scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#select {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5%;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.actions form {
+    width: 100%;
+}
+
+.sidenav {
+    border-top: 5px solid #FFD369;
+}

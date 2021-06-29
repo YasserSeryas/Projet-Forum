@@ -163,3 +163,30 @@ func GetUserFromCookie(req *http.Request) string {
 
 	return userID
 }
+
+func CreateLike(req *http.Request) {
+	// var IDuser string = GetUserFromCookie(req)
+	// IDpost, _ := strconv.Atoi(req.FormValue("idPost"))
+	// for _, like := range Likes {
+	// 	if like.IdPost == IDpost && like.IdUser == IDuser {
+	// 		if like.IsLike {
+	// 			"DELETE" // DeleteLike(IdLike)
+	// 			return
+	// 		} else {
+	// 			"UPDATE" // UpdateLike(bool)
+	// 			return
+	// 		}
+	// 	}
+	// }
+	// "CREATE" // AddLike(Like)
+
+	// var newLike Like
+	// /*newLike. = ...*/
+
+	// AddLike(newLike)
+}
+
+func CreateDislike(req *http.Request) {
+	var newDislike Like
+	AddDislike(newDislike)
+}

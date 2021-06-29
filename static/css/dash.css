@@ -88,7 +88,6 @@ h2{
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
-    padding: 0 1.5%;
     border-top:5px solid #FFD369;
     height: 100%;
     overflow: auto;

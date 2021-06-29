@@ -39,6 +39,12 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 			}
 		case "addComment":
 			CreateComment(req) // A FINIR <--------------------------
+		case "actions":
+			if req.FormValue("isLike") == "like" {
+				CreateLike(req)
+			} else if req.FormValue("isLike") == "dislike" {
+				CreateDislike(req)
+			}
 		}
 	}
 

@@ -13,13 +13,21 @@
     
         <div class="container-fluid text-center">    
             <div class="row content">
-                <div class="col-sm-2 sidenav2">
-                    <h2><a class="titleSidenav" href="../dashboard">Dashboard</a></h2>
-                    <h2><a class="titleSidenav" href="../liked">Liked</a></h2>
-                    <h2><a class="titleSidenav" href="../posted">Posted</a></h2>
-                    <img class="LogoDash" src="../static/img/icoDashboardFFF.png"/>
-                    <img class="LogoLike" src="../static/img/icoLikeFFF.png"/>
-                    <img class="LogoPost" src="../static/img/icoCommentFFF.png"/>
+                <div class="col-sm-2 sidenavLeft">
+                    <div class="lineSidebar">
+                        <h2><a class="titleSidenav" href="../dashboard">Dashboard</a></h2>
+                        <img class="LogoDash" src="../static/img/icoDashboardFFF.png"/>
+                    </div>
+
+                    <div class="lineSidebar">
+                        <h2><a class="titleSidenav" href="../liked">Liked</a></h2>
+                        <img class="LogoLike" src="../static/img/icoLikeFFF.png"/>
+                    </div>
+
+                    <div class="lineSidebar" style="margin-bottom: 25%;">
+                        <h2><a class="titleSidenav" href="../posted">Posted</a></h2>
+                        <img class="LogoPost" src="../static/img/icoCommentFFF.png"/>
+                    </div>
                 </div>
 
                 <div class="col-sm-8 text-left">
@@ -31,45 +39,77 @@
                                 <input type="hidden" name="formName" value="addPost">
 
                                 <div class="bandeau">
-                                    <textarea id="Usertxt" name="Usertxt" 
-                                    rows="3" cols="25" wrap="hard" placeholder="Title" required 
-                                    pattern="\S+.*" class="custom-title"></textarea>
+                                    <input type="text" name="postTitle" class="postTitle" placeholder="Title">
                                 </div>
+
+                                <textarea id="Usertxt" name="usertxt"
+                                rows="3" cols="25" wrap="hard" placeholder="Write here" required
+                                 pattern="\S+.*" class="postContentInput"></textarea>
                                 
-                                <div id="test">
-                                    <label id="font1" for="choice">Choix de la categorie</label>
-                                    <select name="category" id="choice" required>
-                                        <option value="">--Please choose a Category--</option>
-                                        <option value="Gaming">Gaming</option>
-                                        <option value="Politics">Politics</option>
-                                        <option value="History">History</option>
-                                        <option value="LifeStory">LifeStory</option>
-                                        <option value="Sport">Sport</option>
-                                        <option value="Memes">Memes</option>
-                                        <option value="Environnement">Environnement</option>
-                                        <option value="Art">Art</option>
-                                        <option value="Geography">Geography</option>
+                                <div id="select">
+                                    <label class="police1" id="font1" for="choice">Choose a category :</label>
+                                    <select class="categorySelect" name="category" id="choice" required>
+                                        <option class="categorySelect" value="">--Please choose a Category--</option>
+                                        <option class="categoryGaming" value="Gaming">Gaming</option>
+                                        <option class="categoryPolitics" value="Politics">Politics</option>
+                                        <option class="categoryHistory" value="History">History</option>
+                                        <option class="categoryLifeStory" value="LifeStory">LifeStory</option>
+                                        <option class="categorySport" value="Sport">Sport</option>
+                                        <option class="categoryMemes" value="Memes">Memes</option>
+                                        <option class="categoryEnvironment" value="Environnement">Environment</option>
+                                        <option class="categoryArt" value="Art">Art</option>
+                                        <option class="categoryGeography" value="Geography">Geography</option>
                                     </select>
                                 </div>
-                            
-                                <div id="bandeau">
-                                    <input type="text" name="titlePost" id="titlePost">
-                                    <textarea id="Usertxt" name="usertxt"
-                                    rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*" style="font-size: 25px ; background-color: #FAEBD7;font-family:OCR A Std, monospace; font-weight: bold; border: solid white 3px;"></textarea>
-                                    <input type="submit" Value="Valider" style="width:110px;height: 30px;font-size: 19px;font-family:Arial; font-style: oblique ; font-weight: 51; background-color: #FAEBD7">
-                                </div>
+                                
+                                <input type="submit" Value="Send" class="submitPost">
                             </form>
                         </div>
+
+                        <div class="flexLine">
+                            <div class="underPostForm"></div>
+                        </div>
+                        
                         
                         {{range .}}
                             <div class="Post">
-                                <h2>User: @{{.PostData.User}}</h2>
+                                <h1 class="police2">
+                                    {{.PostData.User}}
+                                </h1>
+                                <h1 class="postDisplayedTitle">
+                                    {{.PostData.Title}}
+                                </h1>
 
-                                <p>Content: {{.PostData.Content}}</p>
-                                <p>Like :{{.PostData.Like}}</p>
+                                <p class="postContent">
+                                    {{.PostData.Content}}
+                                </p>
+
+                                <div class="actions">
+                                    <form action="" method="post">
+                                        <input type="hidden" name="formName" value="actions">
+                                        <input type="hidden" name="idPost" value="{{.PostData.IdPost}}">
+                                        <div class="like">
+                                            <button type="submit" name="isLike" value="like">
+                                                <img class="Like" src="../static/img/icoDashboardFFF.png"/>
+                                            </button>
+                                        </div>
+                                        <div class="dislike">
+                                            <button type="submit" name="isLike" value="dislike">
+                                                <img class="Dislike" src="../static/img/icoLikeFFF.png"/>
+                                            </button>
+                                        </div>
+                                        <div class="comm">
+                                            <button>
+                                                <img class="Comm" src="../static/img/icoCommentFFF.png"/>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- <p>Like :{{.PostData.Like}}</p>
                                 <p>Dislike: {{.PostData.Dislike}}</p>
                                 <p>Category: #{{.PostData.Category}}</p>
-                                <p>Creation Date :{{.PostData.CreationDate}}</p>
+                                <p>Creation Date :{{.PostData.CreationDate}}</p> -->
         
                                 {{range $Comment := .Comments}}
                                     <div class="comment">
@@ -81,11 +121,12 @@
                                     <input type="hidden" name="formName" value="addComment">
                                     <input type="hidden" id="Idpost" name="Idpost" value="{{.PostData.IdPost}}">
 
-                                    <textarea id="Usertxt" name="usertxt" rows="3" cols="25" wrap="hard" placeholder="Entrez votre texte" required pattern="\S+.*">
-                                    </textarea>
+                                    <input type="text" name="usertxt" id="Usertext">
                                     <input type="submit" Value="Valider">
                                 </form>
                             </div>
+
+                            <hr>
                         {{end}}
                     </div>
                 </div>

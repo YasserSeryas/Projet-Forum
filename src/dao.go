@@ -43,6 +43,14 @@ func AddSession(newSession Session) {
 	GetSessions() // Update struct go variable
 }
 
+func AddLike(newLike Like) {
+	GetLike()
+}
+
+func AddDislike(newLike Like) {
+	GetDislike()
+}
+
 // ---READ---
 
 // Formerly ShowPost()
@@ -107,6 +115,14 @@ func GetSessions() {
 	}
 	Sessions = sessions
 	rows.Close()
+}
+
+func GetLike() {
+
+}
+
+func GetDislike() {
+
 }
 
 func GetUsername(IdUser string) string {

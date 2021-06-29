@@ -39,11 +39,10 @@ type (
 	}
 
 	Like struct {
-		IdPost    int
-		User      string
-		IsLike    bool
-		IsDislike bool
-		Date      time.Time
+		IdLike int
+		IdPost int
+		IdUser string
+		IsLike bool
 	}
 
 	TemplateData struct {
