@@ -28,14 +28,25 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 
 	er := tHomeLogged.Execute(w, Result2)
 	fmt.Println(er)
+	if req.Method == "POST" {
+		if req.FormValue("formName") == "actions" {
+			if req.FormValue("isLike") == "like" {
+				CreateLike(req)
+			} else if req.FormValue("islike") == "dislike" {
+				CreateDislike(req)
+			}
+
+		}
+	}
 }
 func Dashboard(w http.ResponseWriter, req *http.Request) {
-	tDashboard, err := template.ParseFiles("templates/dashboard.html")
+	tDashboard, err := template.ParseFiles("templates/dashboard.html", "templates/navbarLogged.html")
 	if err != nil {
 		w.WriteHeader(400)
 	}
 
-	tDashboard.Execute(w, nil)
+	er := tDashboard.Execute(w, Result2)
+	fmt.Println(er)
 
 }
 

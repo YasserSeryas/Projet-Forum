@@ -91,6 +91,35 @@
       
   
     <p>Content: {{.PostData.Content}}</p>
+    
+      <!-- <form  action="/like" method="post"> -->
+        <div class="actions">
+          <form action="" method="post">
+              <input type="hidden" name="formName" value="actions">
+              <input type="hidden" name="idPost" value="{{.PostData.IdPost}}">
+              <div class="like">
+                  <butto type="submit" name="IsLike" value="like"n>
+                      <img class="Like" src="../static/img/icoDashboardFFF.png"/>
+                  </button>
+              </div>
+              <div class="dislike">
+                  <button type="submit" name="IsLike" value="dislike">
+                      <img class="Dislike" src="../static/img/icoLikeFFF.png"/>
+                  </button>
+              </div>
+              <div class="comm">
+                  <button>
+                      <img class="Comm" src="../static/img/icoCommentFFF.png"/>
+                  </button>
+              </div>
+          </form>
+      </div>
+
+
+      <!-- <input type="hidden" id="IdPostLike" name="IdPostLike" value="{{.PostData.IdPost}}">
+      <button type="submit">Like</button> -->
+    <!-- </form> -->
+
     <p>Like :{{.PostData.Like}}</p>
     <p>Dislike: {{.PostData.Dislike}}</p>
     <p>Category: #{{.PostData.Category}}</p>
@@ -99,7 +128,7 @@
     
     {{range $Comment := .Comments}}
         
-        <p>Comment: {{$Comment.UserName}} : {{$Comment.CommentContent}}</p>
+        <p>Comment:  {{$Comment.UserName}} : {{$Comment.CommentContent}}</p> 
 
  
           {{end}}
