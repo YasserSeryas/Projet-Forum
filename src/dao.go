@@ -9,6 +9,8 @@ import (
 
 var Database, _ = sql.Open("sqlite3", "./Bdd/ProjetForumBDD.db")
 
+// CRUD : Create Read Update Delete
+
 // ---CREATE---
 
 // Add a post to DB
@@ -44,11 +46,11 @@ func AddSession(newSession Session) {
 }
 
 func AddLike(newLike Like) {
+	fmt.Println(newLike)
+	stmt, _ := Database.Prepare("INSERT INTO Like ( IdUser, IsLike, IdPost) VALUES ( ?, ?, ?); ")
+	stmt.Exec(newLike.IdUser, newLike.IsLike, newLike.IdPost)
+	stmt.Close()
 	GetLike()
-}
-
-func AddDislike(newLike Like) {
-	GetDislike()
 }
 
 // ---READ---
@@ -56,12 +58,12 @@ func AddDislike(newLike Like) {
 // Formerly ShowPost()
 // Get all posts from DB
 func GetPosts() {
-	rows, _ := Database.Query("SELECT [Id-Post], User, Content, NbrLike, NbrDislike, CreationDate, Category FROM Post")
+	rows, _ := Database.Query("SELECT [Id-Post], User, Title, Content, NbrLike, NbrDislike, CreationDate, Category FROM Post")
 
 	var data Post
 	var TempData TemplateData
 	for rows.Next() {
-		rows.Scan(&data.IdPost, &data.User, &data.Content, &data.Like, &data.Dislike, &data.CreationDate, &data.Category)
+		rows.Scan(&data.IdPost, &data.User, &data.Title, &data.Content, &data.Like, &data.Dislike, &data.CreationDate, &data.Category)
 		TempData.PostData = data
 		AllData = append(AllData, TempData)
 
@@ -117,14 +119,6 @@ func GetSessions() {
 	rows.Close()
 }
 
-func GetLike() {
-
-}
-
-func GetDislike() {
-
-}
-
 func GetUsername(IdUser string) string {
 	var username string
 
@@ -136,7 +130,26 @@ func GetUsername(IdUser string) string {
 	return username
 }
 
+func GetLike() {
+	var likes []Like
+	rows, _ := Database.Query("SELECT IdLike, IdUser, IsLike, IdPost FROM Like ;")
+	for rows.Next() {
+		var like Like
+		rows.Scan(&like.IdLike, &like.IdUser, &like.IsLike, &like.IdPost)
+		likes = append(likes, like)
+	}
+	Likes = likes
+	rows.Close()
+}
+
 // ---UPDATE---
+
+func UpdateLike(IsLike bool) {
+	stmt, _ := Database.Prepare("UPDATE Like SET IsLike =?;")
+	stmt.Exec(IsLike)
+	stmt.Close()
+	GetLike()
+}
 
 // ---DELETE---
 
@@ -146,6 +159,13 @@ func DeleteSession(userID string) {
 	stmt.Exec(userID)
 	stmt.Close()
 	GetSessions() // Update struct go variable
+}
+
+func DeleteLike(IdLike int) {
+	stmt, _ := Database.Prepare("DELETE FROM Like WHERE IdLike = ?;")
+	stmt.Exec(IdLike)
+	stmt.Close()
+	GetLike()
 }
 
 // ---OTHER---

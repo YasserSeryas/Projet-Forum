@@ -57,7 +57,7 @@ func CreatePost(req *http.Request) error {
 
 	newPost.Category = req.FormValue("category")
 	newPost.Content = req.FormValue("usertxt")
-	newPost.Title = req.FormValue("titlePost")
+	newPost.Title = req.FormValue("postTitle")
 	AddPost(newPost)
 	return err
 }
@@ -165,28 +165,85 @@ func GetUserFromCookie(req *http.Request) string {
 }
 
 func CreateLike(req *http.Request) {
-	// var IDuser string = GetUserFromCookie(req)
-	// IDpost, _ := strconv.Atoi(req.FormValue("idPost"))
-	// for _, like := range Likes {
-	// 	if like.IdPost == IDpost && like.IdUser == IDuser {
-	// 		if like.IsLike {
-	// 			"DELETE" // DeleteLike(IdLike)
-	// 			return
-	// 		} else {
-	// 			"UPDATE" // UpdateLike(bool)
-	// 			return
-	// 		}
-	// 	}
-	// }
-	// "CREATE" // AddLike(Like)
-
-	// var newLike Like
-	// /*newLike. = ...*/
-
-	// AddLike(newLike)
+	var IdUser string = GetUserFromCookie(req)
+	IdPost, _ := strconv.Atoi(req.FormValue("IdPost"))
+	for _, like := range Likes {
+		if like.IdPost == IdPost && like.IdUser == IdUser {
+			if like.IsLike {
+				DeleteLike(like.IdLike)
+				return
+			} else {
+				UpdateLike(true)
+				return
+			}
+		}
+	}
+	var newLike Like
+	newLike.IdPost = IdPost
+	newLike.IdUser = IdUser
+	newLike.IsLike = true
+	AddLike(newLike)
 }
 
 func CreateDislike(req *http.Request) {
+	var IdUser string = GetUserFromCookie(req)
+	IDPost, _ := strconv.Atoi(req.FormValue("idPost"))
+	for _, like := range Likes {
+		if like.IdPost == IDPost && like.IdUser == IdUser {
+			if like.IsLike {
+				UpdateLike(false)
+				return
+			} else {
+				DeleteLike(like.IdLike)
+				return
+			}
+		}
+	}
 	var newDislike Like
-	AddDislike(newDislike)
+	newDislike.IdPost, _ = strconv.Atoi(req.FormValue("idPost"))
+	newDislike.IdUser = "test"
+	newDislike.IsLike = false
+	AddLike(newDislike)
+}
+
+func GetLikedPosts(req *http.Request) error {
+	var likedPosts []TemplateData
+	var user string
+	var errCookie error
+	if GetUserFromCookie(req) == "" {
+		errCookie = errors.New("in /src/backend.go/GetLikedPosts : no user find")
+	} else {
+		user = GetUserFromCookie(req)
+	}
+
+	for _, like := range Likes {
+		if like.IdUser == user {
+			for _, data := range AllData {
+				if data.PostData.IdPost == like.IdPost {
+					likedPosts = append(likedPosts, data)
+				}
+			}
+		}
+	}
+	LikedPosts = likedPosts
+	return errCookie
+}
+
+func GetPostedPosts(req *http.Request) error {
+	var postedPosts []TemplateData
+	var user string
+	var errCookie error
+	if GetUserFromCookie(req) == "" {
+		errCookie = errors.New("in /src/backend.go/GetPostedPosts : no user find")
+	} else {
+		user = GetUserFromCookie(req)
+	}
+
+	for _, data := range AllData {
+		if data.PostData.User == user {
+			postedPosts = append(postedPosts, data)
+		}
+	}
+	PostedPosts = postedPosts
+	return errCookie
 }

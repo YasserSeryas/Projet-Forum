@@ -38,7 +38,7 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 				http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
 			}
 		case "addComment":
-			CreateComment(req) // A FINIR <--------------------------
+			CreateComment(req)
 		case "actions":
 			if req.FormValue("isLike") == "like" {
 				CreateLike(req)
@@ -150,7 +150,11 @@ func Liked(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
 	}
 
-	tLiked.Execute(w, nil)
+	if GetLikedPosts(req) != nil {
+		http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
+	}
+
+	tLiked.Execute(w, LikedPosts)
 }
 
 func Posted(w http.ResponseWriter, req *http.Request) {
@@ -163,5 +167,9 @@ func Posted(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
 	}
 
-	tPosted.Execute(w, nil)
+	if GetPostedPosts(req) != nil {
+		http.Redirect(w, req, "http://localhost:2030/login", http.StatusSeeOther)
+	}
+
+	tPosted.Execute(w, PostedPosts)
 }
