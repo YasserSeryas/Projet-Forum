@@ -9,7 +9,7 @@
     </head>
 
     <body>
-        {{template "navbarLogged"}}
+        {{template "navbarLogged" .}}
     
         <div class="container-fluid text-center">    
             <div class="row content">
@@ -33,7 +33,7 @@
                 <div class="col-sm-8 text-left">
                     <div class="scroller">
                         <div class="container">
-                            <h1 class="police2">Welcome, Type Your Post</h1>
+                            <h1 class="police2">Welcome {{.User}}, Type Your Post </h1>
                         
                             <form action="" method="POST">
                                 <input type="hidden" name="formName" value="addPost">
@@ -71,10 +71,10 @@
                         </div>
                         
                         
-                        {{range .}}
+                        {{range .AllData}}
                             <div class="Post">
                                 <h1 class="police2">
-                                    {{.PostData.User}}
+                                    {{.UsernamePost}}
                                 </h1>
                                 <h1 class="postDisplayedTitle">
                                     {{.PostData.Title}}
@@ -85,17 +85,19 @@
                                 </p>
 
                                 <div class="actions">
-                                    <form action="" method="post">
+                                    <form action="" method="post" class="actions">
                                         <input type="hidden" name="formName" value="actions">
                                         <input type="hidden" name="IdPost" value="{{.PostData.IdPost}}">
                                         <div class="like">
+                                            <label for="">{{.PostData.NbrLike}}</label>
                                             <button type="submit" name="isLike" value="like">
-                                                <img class="Like" src="../static/img/icoDashboardFFF.png"/>
+                                                <img class="Like" src="../static/img/icoColoredLike.png"/>
                                             </button>
                                         </div>
                                         <div class="dislike">
+                                            <label for="">{{.PostData.NbrDislike}}</label>
                                             <button type="submit" name="isLike" value="dislike">
-                                                <img class="Dislike" src="../static/img/icoLikeFFF.png"/>
+                                                <img class="Dislike" src="../static/img/icoBrokenHeartColored.png"/>
                                             </button>
                                         </div>
                                         <div class="comm">
@@ -106,8 +108,8 @@
                                     </form>
                                 </div>
                                 
-                                <!-- <p>Like :{{.PostData.Like}}</p>
-                                <p>Dislike: {{.PostData.Dislike}}</p>
+                                <!-- <p>Like :{{.PostData.NbrLike}}</p>
+                                <p>Dislike: {{.PostData.NbrDislike}}</p>
                                 <p>Category: #{{.PostData.Category}}</p>
                                 <p>Creation Date :{{.PostData.CreationDate}}</p> -->
         

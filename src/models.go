@@ -19,8 +19,8 @@ type (
 		User         string
 		Title        string
 		Content      string
-		Like         int
-		Dislike      int
+		NbrLike      int
+		NbrDislike   int
 		CreationDate time.Time
 		Category     string
 	}
@@ -46,7 +46,8 @@ type (
 	}
 
 	TemplateData struct {
-		PostData Post
-		Comments []Comment
+		PostData     Post
+		UsernamePost string
+		Comments     []Comment
 	}
 )

@@ -48,9 +48,16 @@ func HomeLogged(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	errtemplate := tHomeLogged.Execute(w, AllData)
+	Data := struct {
+		User    string
+		AllData []TemplateData
+	}{
+		GetUsername(GetUserFromCookie(req)),
+		AllData,
+	}
+	errtemplate := tHomeLogged.Execute(w, Data)
 	if errtemplate != nil {
-		log.Fatalln("In home :", errtemplate)
+		log.Fatalln("In homeLogged :", errtemplate)
 	}
 }
 
@@ -64,7 +71,8 @@ func Dashboard(w http.ResponseWriter, req *http.Request) {
 }
 
 func Login(w http.ResponseWriter, req *http.Request) {
-	cookie, errCookie := req.Cookie("isLogged")
+	_, errCookie := req.Cookie("isLogged")
+	var cookie *http.Cookie
 
 	if errCookie != http.ErrNoCookie {
 		cookie = &http.Cookie{
@@ -118,6 +126,11 @@ func Login(w http.ResponseWriter, req *http.Request) {
 			tLogin.Execute(w, nil)
 		}
 	} else {
+		DeleteSession(GetUserFromCookie(req))
+		cookie = &http.Cookie{
+			Name:  "isLogged",
+			Value: "0",
+		}
 		http.SetCookie(w, cookie)
 		tLogin.Execute(w, nil)
 	}

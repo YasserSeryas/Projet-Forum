@@ -46,8 +46,7 @@ func AddSession(newSession Session) {
 }
 
 func AddLike(newLike Like) {
-	fmt.Println(newLike)
-	stmt, errBDD := Database.Prepare("INSERT INTO Like ( User, IsLike, IdPost) VALUES ( ?, ?, ?); ")
+	stmt, errBDD := Database.Prepare("INSERT INTO Like ( IdUser, IsLike, IdPost) VALUES ( ?, ?, ?); ")
 	if errBDD != nil {
 		fmt.Println(errBDD)
 	}
@@ -68,12 +67,17 @@ func GetPosts() {
 
 	var data Post
 	var TempData TemplateData
+	var allData []TemplateData
 	for rows.Next() {
-		rows.Scan(&data.IdPost, &data.User, &data.Title, &data.Content, &data.Like, &data.Dislike, &data.CreationDate, &data.Category)
+		rows.Scan(&data.IdPost, &data.User, &data.Title, &data.Content, &data.NbrLike, &data.NbrDislike, &data.CreationDate, &data.Category)
 		TempData.PostData = data
-		AllData = append(AllData, TempData)
-
+		TempData.UsernamePost = GetUsername(TempData.PostData.User)
+		allData = append(allData, TempData)
 	}
+	AllData = allData
+	// for _, d := range AllData {
+	// 	fmt.Println(d.PostData.NbrLike, d.PostData.NbrDislike)
+	// }
 	rows.Close()
 }
 
@@ -138,7 +142,7 @@ func GetUsername(IdUser string) string {
 
 func GetLike() {
 	var likes []Like
-	rows, _ := Database.Query("SELECT IdLike, User, IsLike, IdPost FROM Like ;")
+	rows, _ := Database.Query("SELECT IdLike, IdUser, IsLike, IdPost FROM Like ;")
 	for rows.Next() {
 		var like Like
 		rows.Scan(&like.IdLike, &like.IdUser, &like.IsLike, &like.IdPost)
@@ -150,11 +154,39 @@ func GetLike() {
 
 // ---UPDATE---
 
-func UpdateLike(IsLike bool) {
-	stmt, _ := Database.Prepare("UPDATE Like SET IsLike =?;")
-	stmt.Exec(IsLike)
+func UpdateLike(IdLike int, IsLike bool) {
+	stmt, _ := Database.Prepare("UPDATE Like SET IsLike = ? WHERE IdLike = ?;")
+	stmt.Exec(IsLike, IdLike)
 	stmt.Close()
-	GetLike()
+	GetLike() // Update struct go variable
+}
+
+func UpdateNbrLike(IdPost int, IsAdd bool) {
+	if IsAdd {
+		stmt, _ := Database.Prepare("UPDATE Post SET NbrLike = NbrLike + 1 WHERE [Id-Post] = ?")
+		stmt.Exec(IdPost)
+		stmt.Close()
+		GetPosts() // Update struct go variable
+		return
+	}
+	stmt, _ := Database.Prepare("UPDATE Post SET NbrLike = NbrLike - 1 WHERE [Id-Post] = ?")
+	stmt.Exec(IdPost)
+	stmt.Close()
+	GetPosts() // Update struct go variable
+}
+
+func UpdateNbrDislike(IdPost int, IsAdd bool) {
+	if IsAdd {
+		stmt, _ := Database.Prepare("UPDATE Post SET NbrDislike = NbrDislike + 1 WHERE [Id-Post] = ?")
+		stmt.Exec(IdPost)
+		stmt.Close()
+		GetPosts() // Update struct go variable
+		return
+	}
+	stmt, _ := Database.Prepare("UPDATE Post SET NbrDislike = NbrDislike - 1 WHERE [Id-Post] = ?")
+	stmt.Exec(IdPost)
+	stmt.Close()
+	GetPosts() // Update struct go variable
 }
 
 // ---DELETE---
@@ -171,7 +203,7 @@ func DeleteLike(IdLike int) {
 	stmt, _ := Database.Prepare("DELETE FROM Like WHERE IdLike = ?;")
 	stmt.Exec(IdLike)
 	stmt.Close()
-	GetLike()
+	GetLike() // Update struct go variable
 }
 
 // ---OTHER---

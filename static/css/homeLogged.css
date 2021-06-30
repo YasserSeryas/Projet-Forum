@@ -113,10 +113,10 @@ h1{
 
 .titleSidenav{
     padding: 0;
-    color: white;
+    color: #EEEEEE;
 }
 .titleSidenav:hover, .titleSidenav:focus {
-    color: white;
+    color: #d1d1d1;
     text-decoration: none;
 }
 
@@ -301,7 +301,6 @@ h1{
     width: 35px; height: 35px;
 }
 .like:hover {
-    border: 1px solid #FFD369;
     color: white;
 }
 
@@ -317,7 +316,6 @@ h1{
     width: 35px; height: 35px;
 }
 .dislike:hover {
-    border: 1px solid #FFD369;
     color: white;
 }
 
@@ -333,16 +331,29 @@ h1{
     width: 35px; height: 35px;
 }
 .comm:hover {
-    border: 1px solid #FFD369;
     color: white;
 }
 
 .Like, .Dislike, .Comm {
-    width: 95%;
+    width: 30px;
+}
+.Like:hover, .Dislike:hover, .Comm:hover {
+    border: 1px solid #FFD369;
+    border-radius: 5px;
 }
 
+.actions {
+    display: flex;
+    flex-direction: row;
+}
 .like, .dislike, .comm {
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.like label, .dislike label, .comm label {
+    margin-right: 10px;
 }
 
 .actions {

@@ -171,9 +171,12 @@ func CreateLike(req *http.Request) {
 		if like.IdPost == IdPost && like.IdUser == IdUser {
 			if like.IsLike {
 				DeleteLike(like.IdLike)
+				UpdateNbrLike(IdPost, false)
 				return
 			} else {
-				UpdateLike(true)
+				UpdateLike(like.IdLike, true)
+				UpdateNbrLike(IdPost, true)
+				UpdateNbrDislike(IdPost, false)
 				return
 			}
 		}
@@ -183,27 +186,32 @@ func CreateLike(req *http.Request) {
 	newLike.IdUser = IdUser
 	newLike.IsLike = true
 	AddLike(newLike)
+	UpdateNbrLike(IdPost, true)
 }
 
 func CreateDislike(req *http.Request) {
 	var IdUser string = GetUserFromCookie(req)
-	IDPost, _ := strconv.Atoi(req.FormValue("idPost"))
+	IdPost, _ := strconv.Atoi(req.FormValue("IdPost"))
 	for _, like := range Likes {
-		if like.IdPost == IDPost && like.IdUser == IdUser {
+		if like.IdPost == IdPost && like.IdUser == IdUser {
 			if like.IsLike {
-				UpdateLike(false)
+				UpdateLike(like.IdLike, false)
+				UpdateNbrLike(IdPost, false)
+				UpdateNbrDislike(IdPost, true)
 				return
 			} else {
+				UpdateNbrDislike(IdPost, false)
 				DeleteLike(like.IdLike)
 				return
 			}
 		}
 	}
 	var newDislike Like
-	newDislike.IdPost, _ = strconv.Atoi(req.FormValue("idPost"))
-	newDislike.IdUser = "test"
+	newDislike.IdPost = IdPost
+	newDislike.IdUser = IdUser
 	newDislike.IsLike = false
 	AddLike(newDislike)
+	UpdateNbrDislike(IdPost, true)
 }
 
 func GetLikedPosts(req *http.Request) error {
