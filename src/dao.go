@@ -47,8 +47,14 @@ func AddSession(newSession Session) {
 
 func AddLike(newLike Like) {
 	fmt.Println(newLike)
-	stmt, _ := Database.Prepare("INSERT INTO Like ( IdUser, IsLike, IdPost) VALUES ( ?, ?, ?); ")
-	stmt.Exec(newLike.IdUser, newLike.IsLike, newLike.IdPost)
+	stmt, errBDD := Database.Prepare("INSERT INTO Like ( User, IsLike, IdPost) VALUES ( ?, ?, ?); ")
+	if errBDD != nil {
+		fmt.Println(errBDD)
+	}
+	_, errExec := stmt.Exec(newLike.IdUser, newLike.IsLike, newLike.IdPost)
+	if errExec != nil {
+		fmt.Println(errExec)
+	}
 	stmt.Close()
 	GetLike()
 }
@@ -132,7 +138,7 @@ func GetUsername(IdUser string) string {
 
 func GetLike() {
 	var likes []Like
-	rows, _ := Database.Query("SELECT IdLike, IdUser, IsLike, IdPost FROM Like ;")
+	rows, _ := Database.Query("SELECT IdLike, User, IsLike, IdPost FROM Like ;")
 	for rows.Next() {
 		var like Like
 		rows.Scan(&like.IdLike, &like.IdUser, &like.IsLike, &like.IdPost)
