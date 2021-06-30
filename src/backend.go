@@ -165,6 +165,7 @@ func GetUserFromCookie(req *http.Request) string {
 }
 
 func CreateLike(req *http.Request) {
+	GetLike()
 	var IdUser string = GetUserFromCookie(req)
 	IdPost, _ := strconv.Atoi(req.FormValue("IdPost"))
 	for _, like := range Likes {
@@ -190,6 +191,7 @@ func CreateLike(req *http.Request) {
 }
 
 func CreateDislike(req *http.Request) {
+	GetLike()
 	var IdUser string = GetUserFromCookie(req)
 	IdPost, _ := strconv.Atoi(req.FormValue("IdPost"))
 	for _, like := range Likes {
