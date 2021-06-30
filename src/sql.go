@@ -107,18 +107,18 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	Select := r.PostForm.Get("Category")
 	rows, _ := stmt.Query(Select)
 	var data Post
+	var TempData TemplateData
 	if err != nil {
 		fmt.Println("error Query")
 	}
 	fmt.Println(Select)
 	for rows.Next() {
 		rows.Scan(&data.User, &data.Content, &data.Like, &data.Dislike, &data.CreationDate, &data.Category)
-
+		TempData.PostData = data
+		Result2 = append(Result2, TempData)
 	}
 	rows.Close()
 	fmt.Println(data)
-
-	http.Redirect(w, r, "/dashboard", http.StatusMovedPermanently)
 }
 
 // func AddLike(w http.ResponseWriter, r *http.Request) {

@@ -45,7 +45,7 @@ func Dashboard(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(400)
 	}
 
-	er := tDashboard.Execute(w, nil)
+	er := tDashboard.Execute(w, Result2)
 	fmt.Println(er)
 
 }
