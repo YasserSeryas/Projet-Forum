@@ -40,11 +40,13 @@
 ## Comment installer et déployer le projet ?
 Télecharger  <a href ="https://github.com/YasserSeryas/Projet-Forum/archive/refs/heads/main.zip">ici </a>
 ### Comment installer le projet ?
-Décompresseez le zip et ouvrez le sur Visual Studio code 
+Décompressez le zip et l'ouvrir sur Visual Studio code 
 
 
 ### Comment déployer le projet ?
 Sur VsCode et en etant sur la racine du projet tapez "go run main.go" depuis le terminal 
+
+Suivez le chemin ecrit sur le terminal
 ------------------------------------------------------------------------------------------------------------------------------------
 
 
