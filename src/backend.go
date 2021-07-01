@@ -16,13 +16,25 @@ func CreateAccount(req *http.Request) bool {
 	var newAccount Account
 	// Test if password and confirmed password are equal
 	isGoodSecondPwd := req.FormValue("pwd") == req.FormValue("secondPwd")
+	if !isGoodSecondPwd {
+		ErrorCreationPost = errors.New("veuillez rentrer le même mot de passe dans les deux champs")
+	}
 	// Test if password has good length
 	isGoodPwd := len(req.FormValue("pwd")) > 7
+	if !isGoodPwd {
+		ErrorCreationPost = errors.New("veuillez saisir un mot de passe de plus de 7 charactères")
+	}
 	// Test if email has good shape and length
 	isGoodEmail := EmailRegex.MatchString(req.FormValue("email")) && len(req.FormValue("email")) > 3 && len(req.FormValue("email")) < 200
+	if !isGoodEmail {
+		ErrorCreationPost = errors.New("veuillez saisir un email valide")
+	}
 	// Test if email's mx exists
 	mx, errMX := net.LookupMX(strings.Split(req.FormValue("email"), "@")[1])
 	isGoodMX := errMX == nil || len(mx) > 0
+	if !isGoodMX {
+		ErrorCreationPost = errors.New("veuillez saisir un domaine d'adresse valide")
+	}
 	// Test if email doesn't exist in DB
 	emailDoesntExist := true
 	for _, account := range Accounts {
@@ -30,6 +42,9 @@ func CreateAccount(req *http.Request) bool {
 			emailDoesntExist = false
 			break
 		}
+	}
+	if !emailDoesntExist {
+		ErrorCreationPost = errors.New("un compte existe déjà pour cette adresse mail")
 	}
 
 	// Then create an account or not

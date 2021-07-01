@@ -9,12 +9,13 @@ const (
 
 // Global variables with first letter in uppercase
 var (
-	AllData     = []TemplateData{}
-	Accounts    = []Account{}
-	Sessions    = []Session{}
-	Likes       = []Like{}
-	LikedPosts  = []TemplateData{}
-	PostedPosts = []TemplateData{}
+	AllData           = []TemplateData{}
+	Accounts          = []Account{}
+	Sessions          = []Session{}
+	Likes             = []Like{}
+	LikedPosts        = []TemplateData{}
+	PostedPosts       = []TemplateData{}
+	ErrorCreationPost error
 
 	EmailRegex = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 )
