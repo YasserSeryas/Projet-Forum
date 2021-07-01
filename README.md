@@ -58,7 +58,7 @@ Sur VsCode et en etant sur la racine du projet tapez "go run main.go" depuis le 
   - Le dossier "src" comporte tout nos fichier ".go" , ces fichiers ont pour utilités de gérer toute la partie back de notre projet.
   - Le dossier "BDD" comporte la base de donnée fait sur DbSchema.
   - Le fichier "README.md" comporte l'installation et le déploiment du projet ainsi que la structure du projet et son architecture.
-  - Le fichier "main.go" contient 
-  - Le fichier
+  - Le fichier "main.go" contient le routage et les fonctions de recuperation des données 
+  
   
   Cette organisation permet de se retrouver plus rapidement dans le projet et de retrouver n'importe qu'el fichier sans accros.
