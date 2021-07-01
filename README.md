@@ -1,4 +1,4 @@
-```# Projet-Forum
+# Projet-Forum
 
 ## Sommaire
 - Présentation du projet]
@@ -61,4 +61,4 @@
   - Le fichier "main.go" contient 
   - Le fichier
   
-  Cette organisation permet de se retrouver plus rapidement dans le projet et de retrouver n'importe qu'el fichier sans accros.```
+  Cette organisation permet de se retrouver plus rapidement dans le projet et de retrouver n'importe qu'el fichier sans accros.
