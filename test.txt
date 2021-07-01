@@ -1,2 +1,3 @@
 ERROR - 2021/06/24 09:43:15 Erreur interne du serveur sur la page: Posted | %!(EXTRA string=open templates/posteded.html: no such file or directory)
 ERROR - 2021/06/24 09:43:34 Erreur interne du serveur sur la page: Posted | %!(EXTRA string=open templates/posteded.html: no such file or directory)
+ERROR - 2021/06/30 23:40:36 Erreur interne du serveur sur la page: Posted | %!(EXTRA string=open templates/posteded.html: no such file or directory)
