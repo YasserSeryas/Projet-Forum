@@ -61,4 +61,4 @@ Sur VsCode et en etant sur la racine du projet tapez "go run main.go" depuis le 
   - Le fichier "main.go" contient le routage et les fonctions de recuperation des données 
   
   
-  Cette organisation permet de se retrouver plus rapidement dans le projet et de retrouver n'importe qu'el fichier sans accros.
+  Cette organisation permet de se retrouver plus rapidement dans le projet et de retrouver n'importe quel fichier sans accros.
