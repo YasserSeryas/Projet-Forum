@@ -44,9 +44,8 @@ Décompressez le zip et l'ouvrir sur Visual Studio code
 
 
 ### Comment déployer le projet ?
-Sur VsCode et en etant sur la racine du projet tapez "go run main.go" depuis le terminal 
+Sur VsCode et en etant sur la racine du projet tapez "go run main.go" depuis le terminal et suivez le chemin ecrit sur le terminal
 
-Suivez le chemin ecrit sur le terminal
 ------------------------------------------------------------------------------------------------------------------------------------
 
 
